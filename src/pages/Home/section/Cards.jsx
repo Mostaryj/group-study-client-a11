@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 
 
 const Cards = ({card}) => {
     const {id, img, title, description, time, category} = card;
   return (
     <div>
-      <div className="max-w-lg p-4 shadow-md dark:bg-gray-50 dark:text-gray-800 mt-6">
+      <div className=" p-4 shadow-md dark:bg-gray-50 dark:text-gray-800 mt-6">
        
         <div className="space-y-4">
           <div className="space-y-2">
@@ -27,7 +28,8 @@ const Cards = ({card}) => {
             </p>
             <p>Time: {time}</p>
             </div>
-            <button className="btn w-full bg-">Details</button>
+           <Link to={`/details/${id}`}>
+           <button className="btn w-full bg-emerald-600 text-white">Details</button></Link>
            
           </div>
         </div>

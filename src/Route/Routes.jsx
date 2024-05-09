@@ -7,6 +7,7 @@ import Root from "../layOut/Root";
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
+import Details from "../pages/Home/section/Details";
 
 
 
@@ -29,6 +30,11 @@ import Login from "../pages/Login/Login";
         path: "/register",
         element: <Register></Register>,
       },
+      {
+        path: "/details/:id",
+        element: <Details></Details>,
+        loader: ()=>fetch('/public/fakeData/fakeData.json')
+      }
 
       ]
     },
