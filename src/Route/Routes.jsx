@@ -18,7 +18,8 @@ import Login from "../pages/Login/Login";
       children: [
        {
         path: "/",
-        element: <Home></Home>
+        element: <Home></Home>,
+        loader: () => fetch('/public/fakeData/fakeData.json')
        },
        {
         path: "/login",
