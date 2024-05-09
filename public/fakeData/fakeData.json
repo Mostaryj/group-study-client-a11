@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "img": "https://i.postimg.cc/L5P5vfx9/flat-lay-composition-school-supplies-23-2148913568.jpg",
+    "title": "Mathematics Assignment",
+    "description": "This mathematics assignment covers various topics including algebra, calculus, and geometry. Students will be required to solve a series of complex mathematical problems, demonstrate problem-solving skills, and provide clear explanations for their solutions. The assignment will also include theoretical questions to test understanding of mathematical concepts. This assignment is designed to challenge students and enhance their mathematical abilities.",
+    "time": "3 hours",
+    "category": "STEM"
+  },
+  {
+    "id": 2,
+    "img": "https://i.postimg.cc/C1BxLkTG/handwritten-formulas-old-paper-ink-smudges-generative-ai-188544-53821.jpg",
+    "title": "Literature Essay",
+    "description": "The literature essay assignment involves analyzing a selected piece of literature in depth. Students will need to explore themes, characters, symbolism, and narrative techniques used by the author. In addition to textual analysis, students are expected to provide critical insights and interpretations, supported by evidence from the text. This assignment aims to develop students' analytical and critical thinking skills, as well as their ability to articulate complex ideas effectively in writing.",
+    "time": "4 hours",
+    "category": "Humanities"
+  },
+  {
+    "id": 3,
+    "img": "https://i.postimg.cc/G3DmWFjr/bookmark-books-arrangement-top-view-23-2149894366.jpg",
+    "title": "History Research Paper",
+    "description": "The history research paper assignment requires students to conduct in-depth research on a chosen historical event, period, or figure. Students will need to analyze primary and secondary sources, evaluate historical interpretations, and construct a well-organized and persuasive argument. The paper should demonstrate critical thinking, research skills, and the ability to communicate historical knowledge effectively. This assignment aims to deepen students' understanding of historical contexts and develop their research and writing abilities.",
+    "time": "5 hours",
+    "category": "Social Sciences"
+  },
+  {
+    "id": 4,
+    "img": "https://i.postimg.cc/L894grF6/two-cute-children-chemistry-lesson-making-experiments-155003-2184.jpg",
+    "title": "Science Experiment",
+    "description": "The science experiment assignment involves designing and conducting a scientific experiment to investigate a specific hypothesis or research question. Students will need to plan and execute the experiment, collect and analyze data, and draw conclusions based on their findings. The assignment may also require students to write a scientific report detailing their methodology, results, and conclusions. This assignment aims to develop students' scientific inquiry skills, experimental design, and data analysis abilities.",
+    "time": "4 hours",
+    "category": "STEM"
+  },
+  {
+    "id": 5,
+    "img": "https://i.postimg.cc/wBSd2rZN/html-css-collage-concept-with-person-23-2150062004.jpg",
+    "title": "Computer Programming Project",
+    "description": "The computer programming project assignment involves developing a software application or program using a programming language of choice. Students will need to define project requirements, design program architecture, write code, and test the functionality of their application. The assignment may include additional requirements such as documentation, user interface design, and project presentation. This assignment aims to develop students' programming skills, problem-solving abilities, and software development expertise.",
+    "time": "5 hours",
+    "category": "STEM"
+  },
+  {
+    "id": 6,
+    "img": "https://i.postimg.cc/C5r7C36T/language-communication-message-written-53876-127905.jpg",
+    "title": "Language Learning Exercise",
+    "description": "The language learning exercise assignment focuses on improving language proficiency through a variety of exercises and activities. Students will practice vocabulary acquisition, grammar rules, reading comprehension, and writing skills in the target language. The assignment may include exercises such as vocabulary quizzes, grammar drills, reading passages, and writing assignments. This assignment aims to enhance students' language abilities and foster a deeper understanding of linguistic structures and cultural contexts.",
+    "time": "3 hours",
+    "category": "Languages"
+  }
+]
