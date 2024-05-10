@@ -10,6 +10,7 @@ import { useState } from "react";
 import {   toast } from "react-toastify";
 
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const { signInUser} = useAuth();
@@ -32,7 +33,23 @@ const Login = () => {
       .then((result) => {
        
          toast.success("Login successful", result);
-         navigate(from);
+
+         const user = {email};
+        //  navigate(from);
+
+         //get access token jwt
+         axios.post('http://localhost:5000/jwt', user, {
+          withCredentials: true
+         })
+         .then(res => {
+          console.log(res.data)
+
+          if(res.data.success){
+            navigate(from);
+          }
+         })
+
+
 
        })
        .catch((error) => {
@@ -45,9 +62,7 @@ const Login = () => {
 
   return (
     <div>
-      {/* <Helmet>
-        <title>Luxury Retreats | Login</title>
-      </Helmet> */}
+     
       <div className="hero h-fit bg-base-200">
         <div className="hero-content flex-col ">
           <div className="text-center lg:text-left">

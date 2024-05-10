@@ -3,7 +3,7 @@ const Faq = () => {
     <section className="mt-8 dark:bg-gray-100 dark:text-gray-800">
       <div className="container flex flex-col justify-center px-4 py-8 mx-auto md:p-8">
         <h2 className="text-2xl text-center font-semibold sm:text-4xl">
-           Frequently Asked Questions
+           Asked Questions 
         </h2>
         <p className="mt-4 mb-8 text-center dark:text-gray-600">
           Here are some common questions about StudyHub. If you do not find your answer, feel free to reach out to us.

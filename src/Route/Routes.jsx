@@ -3,11 +3,15 @@ import {
   
   } from "react-router-dom";
 import Root from "../layOut/Root";
- import Error from "../error/Error"
+ import Error from "../error/Error";
+ import PrivateRoute from "./PrivateRoute"
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
 import Details from "../pages/Home/section/Details";
+import Assignments from "../pages/Assignment/Assignments";
+import CreateAssignment from "../pages/Assignment/CreateAssignment";
+import Pending from "../pages/Assignment/Pending";
 
 
 
@@ -34,6 +38,18 @@ import Details from "../pages/Home/section/Details";
         path: "/details/:id",
         element: <Details></Details>,
         loader: ()=>fetch('/public/fakeData/fakeData.json')
+      },
+      {
+        path: '/assignments',
+        element: <Assignments></Assignments>
+      },
+      {
+        path: '/create',
+        element: <PrivateRoute><CreateAssignment></CreateAssignment></PrivateRoute>
+      },
+      {
+        path: '/pending',
+        element: <PrivateRoute><Pending></Pending></PrivateRoute>
       }
 
       ]
