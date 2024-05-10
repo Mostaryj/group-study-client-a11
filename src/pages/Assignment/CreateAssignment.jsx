@@ -7,8 +7,7 @@ import Swal from "sweetalert2";
 const CreateAssignment = () => {
   
   const [dueDate, setDueDate] = useState(new Date());
-
-
+ 
 
   // const { user } = useAuth() || {};
 

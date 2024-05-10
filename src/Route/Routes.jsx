@@ -12,6 +12,7 @@ import Details from "../pages/Home/section/Details";
 import Assignments from "../pages/Assignment/Assignments";
 import CreateAssignment from "../pages/Assignment/CreateAssignment";
 import Pending from "../pages/Assignment/Pending";
+import AssignmentDetails from "../pages/Assignment/AssignmentDetails";
 
 
 
@@ -41,7 +42,13 @@ import Pending from "../pages/Assignment/Pending";
       },
       {
         path: '/assignments',
-        element: <Assignments></Assignments>
+        element: <Assignments></Assignments>,
+       loader: () => fetch("http://localhost:5000/study"),
+      },
+      {
+        path: '/view/:id',
+        element: <AssignmentDetails></AssignmentDetails>,
+       loader: () => fetch('http://localhost:5000/study'),
       },
       {
         path: '/create',
