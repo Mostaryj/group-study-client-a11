@@ -13,6 +13,7 @@ import Assignments from "../pages/Assignment/Assignments";
 import CreateAssignment from "../pages/Assignment/CreateAssignment";
 import Pending from "../pages/Assignment/Pending";
 import AssignmentDetails from "../pages/Assignment/AssignmentDetails";
+import Take from "../pages/Assignment/Take";
 
 
 
@@ -50,13 +51,20 @@ import AssignmentDetails from "../pages/Assignment/AssignmentDetails";
         element: <AssignmentDetails></AssignmentDetails>,
        loader: () => fetch('http://localhost:5000/study'),
       },
+
       {
         path: '/create',
         element: <PrivateRoute><CreateAssignment></CreateAssignment></PrivateRoute>
       },
       {
+        path: '/take',
+        element: <Take></Take>
+      },
+      {
         path: '/pending',
-        element: <PrivateRoute><Pending></Pending></PrivateRoute>
+        element: <PrivateRoute><Pending></Pending></PrivateRoute>,
+        loader: () => fetch("http://localhost:5000/submit"),
+
       }
 
       ]

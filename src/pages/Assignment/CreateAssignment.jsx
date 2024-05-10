@@ -5,32 +5,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
 
 const CreateAssignment = () => {
-  
   const [dueDate, setDueDate] = useState(new Date());
- 
 
   // const { user } = useAuth() || {};
 
   const handleAssignment = (event) => {
     event.preventDefault();
     const form = event.target;
-    const photo =  form.photo.value ;
+    const photo = form.photo.value;
     const title = form.title.value;
     const marks = form.marks.value;
     const description = form.description.value;
     const date = form.date.value;
-
     const level = form.level.value;
-    
 
     const newAssignment = {
       photo,
-     title,
+      title,
       marks,
       date,
       description,
       level,
-    
     };
 
     console.log(newAssignment);
@@ -50,38 +45,30 @@ const CreateAssignment = () => {
         if (data.insertedId) {
           Swal.fire({
             title: "Are you sure?",
-             text: "You won't be able to revert this!",
-             icon: "warning",
-             showCancelButton: true,
-             confirmButtonColor: "#3085d6",
-             cancelButtonColor: "#d33",
-             confirmButtonText: "Yes, create it!",
-          })
-           .then((result) => {
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, create it!",
+          }).then((result) => {
             if (result.isConfirmed) {
-               Swal.fire({
-                 title: "Created!",
-                 text: "Your assignment has been added.",
-                 icon: "success",
-               });
-             }
-          
-            });
-          }
+              Swal.fire({
+                title: "Created!",
+                text: "Your assignment has been added.",
+                icon: "success",
+              });
+            }
+          });
+        }
       });
   };
 
-    
-
   return (
     <div>
-  
-          
-            
-   
-   <div className="bg-sky-100 p-4 md:p-24">
+      <div className="bg-sky-100 p-4 md:p-24">
         <h2 className="text-3xl  font-pop text-center font-extrabold">
-        Create Assignment
+          Create Assignment
         </h2>
         <form onSubmit={handleAssignment}>
           {/* photo url */}
@@ -98,7 +85,6 @@ const CreateAssignment = () => {
                   className="input input-bordered w-full"
                   required
                 />
-                 
               </label>
             </div>
           </div>
@@ -116,7 +102,6 @@ const CreateAssignment = () => {
                   className="input input-bordered w-full"
                   required
                 />
-                 
               </label>
             </div>
             <div className="form-control  md:w-1/2 ml-4">
@@ -131,27 +116,29 @@ const CreateAssignment = () => {
                   className="input input-bordered w-full"
                   required
                 />
-                 
               </label>
             </div>
           </div>
-         
-         
+
           {/* form date and level */}
           <div className="md:flex mb-8">
             <div className="form-control md:w-1/2">
               <label className="label">
                 <span className="label-text">Due Date:</span>
               </label>
-                    <DatePicker name="date" className="w-full p-3 rounded-lg" selected={dueDate} onChange={(date) => setDueDate(date)} />
+              <DatePicker
+                name="date"
+                className="w-full p-3 rounded-lg"
+                selected={dueDate}
+                onChange={(date) => setDueDate(date)}
+              />
             </div>
             <div className="form-control md:w-1/2 ml-4">
-           
-                 <label className="label">
+              <label className="label">
                 <span className="label-text">Difficulty Level</span>
               </label>
               <select name="level" className="select text-gray-800">
-                <option  disabled selected>
+                <option disabled selected>
                   Select One
                 </option>
 
@@ -162,14 +149,14 @@ const CreateAssignment = () => {
             </div>
           </div>
           {/* description */}
-            <div>
-              <h3>Description:</h3>
+          <div>
+            <h3>Description:</h3>
             <textarea
-          className="textarea textarea-bordered h-[150px] w-full"
-          placeholder="About your assignment"
-          name="description"
-        ></textarea>
-            </div>
+              className="textarea textarea-bordered h-[150px] w-full"
+              placeholder="About your assignment"
+              name="description"
+            ></textarea>
+          </div>
 
           <input
             type="submit"

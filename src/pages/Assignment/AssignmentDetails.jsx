@@ -3,8 +3,8 @@ import { Link, useLoaderData, useParams } from "react-router-dom";
 const AssignmentDetails = () => {
   const cards = useLoaderData();
    console.log(cards);
-  const { _id } = useParams();
-  const card = cards.find((card) => card.id == _id);
+  const { id } = useParams();
+  const card = cards.find((card) => card._id == id);
   return (
     <div>
       <div className="hero  bg-yellow-50">
@@ -20,8 +20,8 @@ const AssignmentDetails = () => {
             </p>
             <p><span className="font-bold">Difficulty Level:</span> {card.level}</p>
             <p><span className="font-bold">Marks:</span>{card.marks}</p>
-            <p><span className="font-bold">Deu Date:</span>{card.date}</p>
-            <Link to='/'><button className="btn bg-emerald-600 text-white">Go Back</button></Link>
+            <p><span className="font-bold">Due Date:</span>{card.date}</p>
+            <Link to='/take'><button className="btn bg-emerald-600 text-white">Take Assignment</button></Link>
           </div>
         </div>
       </div>
