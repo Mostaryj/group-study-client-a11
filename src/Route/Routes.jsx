@@ -14,6 +14,8 @@ import CreateAssignment from "../pages/Assignment/CreateAssignment";
 import Pending from "../pages/Assignment/Pending";
 import AssignmentDetails from "../pages/Assignment/AssignmentDetails";
 import Take from "../pages/Assignment/Take";
+import My from "../pages/Assignment/My";
+import Update from "../pages/Assignment/Update";
 
 
 
@@ -44,7 +46,7 @@ import Take from "../pages/Assignment/Take";
       {
         path: '/assignments',
         element: <Assignments></Assignments>,
-       loader: () => fetch("http://localhost:5000/study"),
+        loader: () => fetch("http://localhost:5000/study"),
       },
       {
         path: '/view/:id',
@@ -56,6 +58,12 @@ import Take from "../pages/Assignment/Take";
         path: '/create',
         element: <PrivateRoute><CreateAssignment></CreateAssignment></PrivateRoute>
       },
+        
+      {
+        path: '/my',
+        element: <PrivateRoute><My></My></PrivateRoute>
+      },
+      
       {
         path: '/take',
         element: <Take></Take>
@@ -65,6 +73,11 @@ import Take from "../pages/Assignment/Take";
         element: <PrivateRoute><Pending></Pending></PrivateRoute>,
         loader: () => fetch("http://localhost:5000/submit"),
 
+      },
+      {
+        path: "/update/:id",
+        element: <Update></Update>,
+        loader: ({ params }) => fetch(`http://localhost:5000/study/${params.id}`),
       }
 
       ]

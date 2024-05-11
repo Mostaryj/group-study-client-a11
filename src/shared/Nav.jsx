@@ -26,6 +26,7 @@ const Nav = () => {
   };
 
   const tooltipContent = <>{user?.displayName || "User name not found"}</>;
+
   const tooltipString = renderToString(tooltipContent);
 
   const navLinks = (
@@ -36,19 +37,17 @@ const Nav = () => {
       <li className="font-semibold">
         <NavLink to="/assignments">Assignments</NavLink>
       </li>
-      { user && (
-           <li className="font-semibold">
-           <NavLink to="/create">Create Assignments</NavLink>
-         </li>
+      {user && (
+        <li className="font-semibold">
+          <NavLink to="/create">Create Assignments</NavLink>
+        </li>
       )}
-     
-    
-      { user && (
-          <li className="font-semibold">
+
+      {user && (
+        <li className="font-semibold">
           <NavLink to="/pending">Pending Assignments</NavLink>
         </li>
-      
-       ) }
+      )}
       {/* <li className="font-semibold">
       <NavLink to="/register">Register</NavLink>
       </li> */}
@@ -108,12 +107,39 @@ const Nav = () => {
 
         <div className="navbar-end">
           {user ? (
-            // <div className="dropdown dropdown-end ">
-            //   <label
-            //     tabIndex={0}
+            <div className="dropdown dropdown-end ">
+              <label
+                tabIndex={0}
+                className="tooltip tooltip-bottom mr-4  btn btn-ghost  btn-circle avatar"
+                data-tip={tooltipString}
+              >
+                <div className="w-12 rounded-full ">
+                  <img
+                    src={
+                      user?.photoURL ||
+                      "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                    }
+                  />
+                </div>
+                {user && (
+                  <li className="font-semibold  mt-14 bg-slate-500">
+                    <NavLink to="/my">My Submission</NavLink>
+                  </li>
+                )}
 
+                <button
+                  className="btn text-white absolute mt-6 right-0 p-2 rounded-md shadow-md opacity-0 hover:opacity-100 transition-opacity hover:bg-emerald-600  duration-300"
+                  onClick={logOut}
+                >
+                  LogOut
+                </button>
+              </label>
+            </div>
+          ) : (
+            //   <div className="dropdown dropdown-end ">
+            //   <button
             //     className="tooltip tooltip-bottom mr-4  btn btn-ghost  btn-circle avatar"
-            //     data-tip={tooltipString}
+            //     data-tip={user?.displayName || "User name not found"}
             //   >
             //     <div className="w-12 rounded-full ">
             //       <img
@@ -123,40 +149,15 @@ const Nav = () => {
             //         }
             //       />
             //     </div>
-            //     <button
-            //       className="btn text-white absolute mt-6 right-0 p-2 rounded-md shadow-md opacity-0 hover:opacity-100 transition-opacity hover:bg-emerald-600  duration-300"
-            //       onClick={logOut}
-            //     >
-            //       LogOut
-            //     </button>
-            //   </label>
+            //   </button>
+            //   <button
+            //     className="btn text-white absolute mt-6 right-0 p-2 rounded-md shadow-md opacity-0 hover:opacity-100 transition-opacity hover:bg-blue-800 duration-300"
+            //     onClick={logOut}
+            //   >
+            //     LogOut
+            //   </button>
             // </div>
 
-            <div className="dropdown dropdown-end ">
-            <button
-              className="tooltip tooltip-bottom mr-4  btn btn-ghost  btn-circle avatar"
-              data-tip={user?.displayName || "User name not found"}
-            >
-              <div className="w-12 rounded-full ">
-                <img
-                  src={
-                    user?.photoURL ||
-                    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                  }
-                />
-              </div>
-            </button>
-            <button
-              className="btn text-white absolute mt-6 right-0 p-2 rounded-md shadow-md opacity-0 hover:opacity-100 transition-opacity hover:bg-blue-800 duration-300"
-              onClick={logOut}
-            >
-              LogOut
-            </button>
-          </div>
-
-
-           
-          ) : (
             <div className="flex ">
               <Link to="/login">
                 <button className="btn bg-emerald-600  text-white">
