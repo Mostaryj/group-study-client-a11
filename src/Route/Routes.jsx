@@ -61,7 +61,9 @@ import Update from "../pages/Assignment/Update";
         
       {
         path: '/my',
-        element: <PrivateRoute><My></My></PrivateRoute>
+        element: <PrivateRoute><My></My></PrivateRoute>,
+        loader: () => fetch("http://localhost:5000/submit"),
+       
       },
       
       {

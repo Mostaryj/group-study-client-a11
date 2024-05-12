@@ -122,17 +122,17 @@ const Nav = () => {
                   />
                 </div>
                 {user && (
-                  <li className="font-semibold  mt-14 bg-slate-500">
+                  <li className="font-semibold mt-10  bg-slate-500">
                     <NavLink to="/my">My Submission</NavLink>
                   </li>
                 )}
 
-                <button
+                {/* <button
                   className="btn text-white absolute mt-6 right-0 p-2 rounded-md shadow-md opacity-0 hover:opacity-100 transition-opacity hover:bg-emerald-600  duration-300"
                   onClick={logOut}
                 >
                   LogOut
-                </button>
+                </button> */}
               </label>
             </div>
           ) : (

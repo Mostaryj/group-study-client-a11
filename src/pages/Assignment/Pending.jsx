@@ -7,23 +7,23 @@ const Pending = () => {
    const loadedAssignment = useLoaderData();
    const {user} = useAuth();
 
-  //  const [assignments, setAssignments] = useState([]);
+    const [assignments, setAssignments] = useState([]);
 
  
 
-  //  useEffect(() => {
-  //   setAssignments(loadedAssignment);
+   useEffect(() => {
+    setAssignments(loadedAssignment);
 
-  //   fetch("http://localhost:5000/study")
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch assignments");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(data => setAssignments(data))
-  //     .catch(error => console.error("Error fetching assignments:", error));
-  // }, [loadedAssignment]);
+     fetch("http://localhost:5000/submit")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch assignments");
+        }
+        return response.json();
+      })
+      .then(data => setAssignments(data))
+      .catch(error => console.error("Error fetching assignments:", error));
+  }, [loadedAssignment]);
    
   return (
     <div>
@@ -44,33 +44,22 @@ const Pending = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {loadedAssignment.map((assignment, index) => (
+            {assignments.map((assignment, index) => (
               <tr key={assignment._id}>
                 <td>{index + 1}</td>
-                <td>
-                  <img
-                    className="w-20 rounded-lg"
-                    src={assignment.photo}
-                    alt=""
-                  />
-                </td>
+                <td>{assignment.title}</td>
                 <td>{user.displayName}</td>
                 <td>{user.email}</td>
                 <td>
-                  <a
-                    href={assignment.pdf}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                 {assignment.pdf}
                   
-                  </a>
                 </td>
                 <td>{assignment.note}</td>
-                <td>{assignment.title}</td>
                 <td>{assignment.date}</td>
                 <td>{assignment.level}</td>
                 
-                <td>{assignment.mark}</td>
+                <td>{assignment.marks}</td>
+                <td><button className="btn">Mark</button></td>
               </tr>
             ))}
           </tbody>

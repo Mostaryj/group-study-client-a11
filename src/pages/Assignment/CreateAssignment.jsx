@@ -3,16 +3,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import Swal from "sweetalert2";
+import useAuth from "../../Hook/useAuth";
 
 const CreateAssignment = () => {
   const [dueDate, setDueDate] = useState(new Date());
 
-  // const { user } = useAuth() || {};
+   const { user } = useAuth() || {};
 
   const handleAssignment = (event) => {
     event.preventDefault();
     const form = event.target;
     const photo = form.photo.value;
+    const name = form.name.value;
+    const email = form.email.value;
     const title = form.title.value;
     const marks = form.marks.value;
     const description = form.description.value;
@@ -21,6 +24,8 @@ const CreateAssignment = () => {
 
     const newAssignment = {
       photo,
+      name,
+      email,
       title,
       marks,
       date,
@@ -88,6 +93,38 @@ const CreateAssignment = () => {
               </label>
             </div>
           </div>
+
+           {/* form name and email */}
+           <div className="md:flex mb-8">
+            <div className="form-control  md:w-1/2">
+              <label className="label">
+                <span className="label-text">Name:</span>
+              </label>
+              <label className="input-group">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder={user.displayName}
+                  className="input input-bordered w-full"
+                    readOnly
+                />
+              </label>
+            </div>
+            <div className="form-control  md:w-1/2 ml-4">
+              <label className="label">
+                <span className="label-text">Email: </span>
+              </label>
+              <label className="input-group">
+                <input
+                  type="text"
+                  name="email"
+                  placeholder={user.email}
+                  className="input input-bordered w-full"
+                 readOnly
+                />
+              </label>
+            </div>
+          </div>
           {/* form title name and marks */}
           <div className="md:flex mb-8">
             <div className="form-control  md:w-1/2">
@@ -142,9 +179,9 @@ const CreateAssignment = () => {
                   Select One
                 </option>
 
-                <option>Easy</option>
-                <option>Medium</option>
-                <option>Hard</option>
+                <option value='easy'>Easy</option>
+                <option value ='medium'>Medium</option>
+                <option value='hard'>Hard</option>
               </select>
             </div>
           </div>

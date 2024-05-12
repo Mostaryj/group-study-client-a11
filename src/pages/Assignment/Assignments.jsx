@@ -58,8 +58,7 @@ const Assignments = () => {
               <th>Title</th>
               <th>Date</th>
               <th>Level</th>
-
-              <th></th>
+              <th>Marks</th>
             </tr>
           </thead>
           <tbody>
@@ -77,6 +76,8 @@ const Assignments = () => {
                 <td>{assignment.title}</td>
                 <td>{assignment.date}</td>
                 <td>{assignment.level}</td>
+                <td>{assignment.marks}</td>
+
                 <td>
                   <Link to={`/view/${assignment._id}`}>
                     <button className="btn bg-blue-800 text-white">
