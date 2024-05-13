@@ -3,11 +3,11 @@ import useAuth from "../../Hook/useAuth"
 import { useLoaderData } from "react-router-dom";
 const My = () => {
      const [mySubmit, setMySubmit] = useState();
-  const { user } = useAuth() || {};
+   const { user } = useAuth() || {};
    const loadedAssignment=useLoaderData();
 
    useEffect(() => {
-    fetch('http://localhost:5000/submit-email/:email')
+    fetch(`https://group-study-server-eight.vercel.app/submit-email/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -17,13 +17,13 @@ const My = () => {
       })
      
        .catch((err) => console.log(err.message));
-   }, [user]);
+   }, []);
  
 
     return (
         <div>
                <h1 className="lg:text-4xl text-2xl font-bold font-pop text-center mt-4">
-     My Assignments{" "}
+     My Submitted Assignments{" "}
       </h1>
       <div className="overflow-x-auto">
         <table className="table ">
@@ -50,7 +50,7 @@ const My = () => {
         <td>{assignment.title}</td>
         <td>{assignment.date}</td>
         <td>{assignment.level}</td>
-        <td>{user.displayName}</td> 
+        <td>{assignment.name}</td> 
     </tr> 
 ))} 
           </tbody>

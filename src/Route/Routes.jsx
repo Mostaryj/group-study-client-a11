@@ -28,7 +28,7 @@ import Update from "../pages/Assignment/Update";
        {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch('/public/fakeData/fakeData.json')
+        loader: () => fetch('/fakeData/fakeData.json')
        },
        {
         path: "/login",
@@ -41,17 +41,17 @@ import Update from "../pages/Assignment/Update";
       {
         path: "/details/:id",
         element: <Details></Details>,
-        loader: ()=>fetch('/public/fakeData/fakeData.json')
+        loader: ()=>fetch('/fakeData/fakeData.json')
       },
       {
         path: '/assignments',
         element: <Assignments></Assignments>,
-        loader: () => fetch("http://localhost:5000/study"),
+        loader: () => fetch("https://group-study-server-eight.vercel.app/study"),
       },
       {
         path: '/view/:id',
         element: <AssignmentDetails></AssignmentDetails>,
-       loader: () => fetch('http://localhost:5000/study'),
+       loader: () => fetch('https://group-study-server-eight.vercel.app/study'),
       },
 
       {
@@ -62,7 +62,7 @@ import Update from "../pages/Assignment/Update";
       {
         path: '/my',
         element: <PrivateRoute><My></My></PrivateRoute>,
-        loader: () => fetch("http://localhost:5000/submit"),
+        loader: () => fetch("https://group-study-server-eight.vercel.app/submit"),
        
       },
       
@@ -73,13 +73,13 @@ import Update from "../pages/Assignment/Update";
       {
         path: '/pending',
         element: <PrivateRoute><Pending></Pending></PrivateRoute>,
-        loader: () => fetch("http://localhost:5000/submit"),
+        loader: () => fetch("https://group-study-server-eight.vercel.app/submit"),
 
       },
       {
         path: "/update/:id",
         element: <Update></Update>,
-        loader: ({ params }) => fetch(`http://localhost:5000/study/${params.id}`),
+        loader: ({ params }) => fetch(`https://group-study-server-eight.vercel.app/study/${params.id}`),
       }
 
       ]
@@ -87,3 +87,5 @@ import Update from "../pages/Assignment/Update";
   ]);
 
   export default router;
+
+  

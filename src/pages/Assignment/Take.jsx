@@ -44,7 +44,7 @@ const Take = () => {
       console.log(form);
 
     //    //send data to server
-    fetch("http://localhost:5000/submit/", {
+    fetch("https://group-study-server-eight.vercel.app/submit/", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -169,7 +169,7 @@ const Take = () => {
               </label>
               <DatePicker
                 name="date"
-                className="w-full p-3 rounded-lg"
+                className="w-full p-3 rounded-lg border"
                 selected={dueDate}
                 onChange={(date) => setDueDate(date)}
               />
@@ -178,7 +178,7 @@ const Take = () => {
               <label className="label">
                 <span className="label-text">Difficulty Level</span>
               </label>
-              <select name="level" className="select text-gray-800">
+              <select name="level" className="select border text-gray-800">
                 <option disabled selected>
                   Select One
                 </option>
@@ -201,7 +201,7 @@ const Take = () => {
         <div className="md:flex mb-8">
           <div className="form-control  md:w-1/2">
             <label className="label">
-              <span className="label-text"> </span>
+              <span className="label-text"> PDF/DOC</span>
             </label>
             <label className="input-group">
               <input
@@ -210,8 +210,11 @@ const Take = () => {
                 placeholder="pdf/doc"
                 className="input input-bordered w-full"
                 required
+              
               />
+           
             </label>
+         
           </div>
           <div>
             <h3>Quick Note:</h3>

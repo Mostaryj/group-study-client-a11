@@ -38,7 +38,7 @@ const Login = () => {
         //  navigate(from);
 
          //get access token jwt
-         axios.post('http://localhost:5000/jwt', user, {
+         axios.post('https://group-study-server-eight.vercel.app/jwt', user, {
           withCredentials: true
          })
          .then(res => {

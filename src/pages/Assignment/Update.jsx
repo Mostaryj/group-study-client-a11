@@ -41,7 +41,7 @@ const Update = () => {
       console.log(updated);
   
       //send data to server
-      fetch(`http://localhost:5000/study/${_id}`, {
+      fetch(`https://group-study-server-eight.vercel.app/study/${_id}`, {
          
           method: "PUT",
           headers: {

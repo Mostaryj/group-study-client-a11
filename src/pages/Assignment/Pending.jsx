@@ -1,11 +1,11 @@
  import {  useLoaderData } from "react-router-dom";
- import useAuth from "../../Hook/useAuth";
+ //import useAuth from "../../Hook/useAuth";
  import { useState, useEffect } from "react";
 
 
 const Pending = () => {
    const loadedAssignment = useLoaderData();
-   const {user} = useAuth();
+  //  const {user} = useAuth();
 
     const [assignments, setAssignments] = useState([]);
 
@@ -14,7 +14,7 @@ const Pending = () => {
    useEffect(() => {
     setAssignments(loadedAssignment);
 
-     fetch("http://localhost:5000/submit")
+     fetch("https://group-study-server-eight.vercel.app/submit/")
       .then(response => {
         if (!response.ok) {
           throw new Error("Failed to fetch assignments");
@@ -48,8 +48,8 @@ const Pending = () => {
               <tr key={assignment._id}>
                 <td>{index + 1}</td>
                 <td>{assignment.title}</td>
-                <td>{user.displayName}</td>
-                <td>{user.email}</td>
+                <td>{assignment.name}</td>
+                <td>{assignment.email}</td>
                 <td>
                  {assignment.pdf}
                   

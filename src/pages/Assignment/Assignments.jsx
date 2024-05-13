@@ -1,10 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../Hook/useAuth";
 
 const Assignments = () => {
-  const loadedAssignment = useLoaderData();
+  // const loadedAssignment = useLoaderData();
   const [assignments, setAssignments] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const {user} = useAuth();
+
+  const handleFilter = (e) => {
+    const selectedValue = e.target.value;
+
+    const newFiltered = filters.filter(
+      (newAssignment) => newAssignment.customization === selectedValue
+    );
+     setFilters(newFiltered);
+    console.log(newFiltered)
+  };
+
+  useEffect(() => {
+    fetch('https://group-study-server-eight.vercel.app/study/')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setAssignments(data);
+        setFilters(data);
+
+       
+      })
+     
+      .catch((err) => console.log(err.message));
+  }, [user]);
 
   const handleDelete = (id) => {
     // console.log(_id);
@@ -20,7 +47,7 @@ const Assignments = () => {
       if (result.isConfirmed) {
         console.log("delete confirm");
 
-        fetch(`http://localhost:5000/study/${id}`, {
+        fetch(`https://group-study-server-eight.vercel.app/study/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -37,6 +64,8 @@ const Assignments = () => {
                 (assignment) => assignment._id !== id
               );
               setAssignments(remaining);
+
+              setFilters(remaining);
             }
           });
       }
@@ -48,6 +77,24 @@ const Assignments = () => {
       <h1 className="lg:text-4xl text-2xl font-bold font-pop text-center mt-4">
         All Assignments{" "}
       </h1>
+        {/* filter */}
+        <div className="flex items-center justify-center p-2 gap-4 mb-6">
+          <span>Customization filter:</span>
+          <select
+            name="sort"
+            onChange={handleFilter}
+            className="border min-w-0 px-4 py-2 rounded-md bg-gray-200"
+            defaultValue={""}
+          >
+            <option value="" disabled>
+              Select Customization
+            </option>
+            <option value="Hard">Hard</option>
+            <option value="Medium">Medium</option>
+            <option value="Easy">Easy</option>
+          </select>
+        </div>
+        {/*  */}
       <div className="overflow-x-auto">
         <table className="table ">
           {/* head */}
@@ -63,7 +110,7 @@ const Assignments = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {loadedAssignment.map((assignment, index) => (
+            {filters.map((assignment, index) => (
               <tr key={assignment._id}>
                 <td>{index + 1}</td>
                 <td>
