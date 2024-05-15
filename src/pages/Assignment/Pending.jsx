@@ -139,8 +139,7 @@ const Pending = () => {
                     </button>
                     <dialog id="my_modal_4" className="modal ">
                       <div className="modal-box bg-red-200">
-                         {/* <h3 className="font-bold text-lg">Hello!</h3>
-                <p className="py-4">Click the button below to close</p> */}
+                        
                 <div className="modal-action"></div>
                         <div className="modal-action ">
                           <div method="dialog">
@@ -149,7 +148,7 @@ const Pending = () => {
                                 <div className="form-control gap-2 md:w-1/2">
                                   <label className="label">
                                     <span className="label-text">
-                                      PDF/Doc:
+                                      PDF/Doc: 
                                     </span>
                                   </label>
 
@@ -157,8 +156,8 @@ const Pending = () => {
                                     <input
                                       type="text"
                                       name=""
-                                      placeholder="pdf/doc"
-                                      className="input input-bordered w-full"
+                                      placeholder={assignment.pdf}
+                                      className="input input-bordered w-full "
                                       
                                     />
                                   </label>
@@ -175,7 +174,7 @@ const Pending = () => {
                                     <input
                                       type="text"
                                       name=""
-                                      placeholder="note"
+                                      placeholder={assignment.note}
                                       className="input input-bordered w-full"
                                     />
                                   </label>
@@ -213,6 +212,7 @@ const Pending = () => {
                                   className="btn btn-block bg-green-300"
                                 />
                               </div>
+                            <Link to='/'>  <button className="btn">Go Back</button></Link>
                             </form>
                           </div>
                         </div>
