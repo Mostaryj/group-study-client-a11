@@ -25,9 +25,7 @@ const Nav = () => {
     setTheme(newTheme);
   };
 
-  // const tooltipContent = <>{user?.displayName || "User name not found"}</>;
 
-  // const tooltipString = renderToString(tooltipContent);
 
   const navLinks = (
     <>
@@ -55,7 +53,7 @@ const Nav = () => {
 
   return (
     <div className="">
-      <div className="navbar   border-b-2 ">
+      <div className="navbar   border-b-2 border-blue-500">
         <div className="navbar-start ">
           <div className="dropdown">
             <div
@@ -85,7 +83,7 @@ const Nav = () => {
               {navLinks}
             </ul>
           </div>
-          <a className="font-pop font-semibold lg:text-2xl  sm:flex items-center justify-center text-blue-800 bg-clip-text">
+          <a className=" font-bold lg:text-2xl  sm:flex items-center justify-center text-blue-800 bg-clip-text">
             <span>
               <img src={icon} alt="" className="w-10 h-10 hidden lg:block " />
             </span>
