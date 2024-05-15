@@ -31,9 +31,9 @@ console.log(card)
 
          title:card.title,
           marks:card.marks,
-        // date,
+         date:card.date,
         // description,
-        // level,   
+         level:card.level,   
       };
   
       console.log(submitAssignment);

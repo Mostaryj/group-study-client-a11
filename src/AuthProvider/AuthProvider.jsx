@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import {
-    // GithubAuthProvider,
     GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -12,6 +11,7 @@ import {
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 
+import axios from "axios";//
 
 
 export const AuthContext = createContext(null);
@@ -20,7 +20,7 @@ export const AuthContext = createContext(null);
 
 //social auth
 const googleProvider = new  GoogleAuthProvider();
-// const githubProvider = new GithubAuthProvider();
+
 
 
 const AuthProvider = ({ children }) => {
@@ -75,17 +75,48 @@ const AuthProvider = ({ children }) => {
   
  
    // OBSERVER
-   useEffect(() => {
-    const unsubscribe = 
-   onAuthStateChanged(auth, (user) => {
+  //  useEffect(() => {
+  //   const unsubscribe = 
+  //  onAuthStateChanged(auth, (user) => {
      
-        if(user){
-          setUser(user);
-        }
-          setLoading(false);
+  //       if(user){
+  //         setUser(user);
+  //       }
+  //         setLoading(false);
     
+  //   });
+  //    return () => unsubscribe();
+  // }, []);
+
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      const userEmail = user?.email || user?.email;
+      const loggedUser = {email: userEmail};
+      if (user) {
+       
+       
+        axios.post('https://group-study-server-eight.vercel.app/jwt', loggedUser,{
+         withCredentials: true
+        })
+        .then(res =>{
+          console.log("token" , res.data);
+        })
+      }
+      // else{
+      //   axios.post('https://group-study-server-eight.vercel.app/logout', loggedUser,{
+      //     withCredentials: true
+      //    })
+      //    .then(res =>{
+      //     console.log("token logout" , res.data);
+      //   })
+      // }
+
+      setLoading(false);
     });
-     return () => unsubscribe();
+    return () => {
+      unSubscribe();
+    };
   }, []);
 
 
@@ -96,8 +127,8 @@ const AuthProvider = ({ children }) => {
     googleLogin,
     logOut,
     user,
-     setUser,
-        loading
+    setUser,
+    loading
 
   };
   return (

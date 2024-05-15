@@ -10,7 +10,7 @@ import { useState } from "react";
 import {   toast } from "react-toastify";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 
 const Login = () => {
   const { signInUser} = useAuth();
@@ -34,20 +34,20 @@ const Login = () => {
        
          toast.success("Login successful", result);
 
-         const user = {email};
-        //  navigate(from);
+        //  const user = {email};
+          navigate(from);
 
          //get access token jwt
-         axios.post('https://group-study-server-eight.vercel.app/jwt', user, {
-          withCredentials: true
-         })
-         .then(res => {
-          console.log(res.data)
+        //  axios.post('https://group-study-server-eight.vercel.app/jwt', user, {
+        //   withCredentials: true
+        //  })
+        //  .then(res => {
+        //   console.log(res.data)
 
-          if(res.data.success){
-            navigate(from);
-          }
-         })
+        //   if(res.data.success){
+        //     navigate(from);
+        //   }
+        //  })
 
 
 

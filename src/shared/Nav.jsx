@@ -48,15 +48,7 @@ const Nav = () => {
           <NavLink to="/pending">Pending Assignments</NavLink>
         </li>
       )}
-      {/* <li className="font-semibold">
-      <NavLink to="/register">Register</NavLink>
-      </li> */}
-
-      {/* {user ? null : (
-        <li className="font-semibold">
-          <NavLink to="/register">Register</NavLink>
-        </li>
-      )} */}
+   
 
     </>
   );
@@ -108,35 +100,69 @@ const Nav = () => {
           {user ? (
 
             
-            <div className="dropdown dropdown-end ">
-              <label
-                tabIndex={0}
-                className="tooltip tooltip-bottom mr-4  btn btn-ghost  btn-circle avatar"
-                // data-tip={tooltipString}
-              >
-                <div className="w-12 rounded-full ">
-                  <img
-                    src={
-                      user?.photoURL ||
-                      "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                    }
-                  />
-                </div>
-                <li className="font-semibold mt-10 w-20 bg-slate-200">
-                  <NavLink to="/my"> My Submission</NavLink>
-                </li>
+            // <div className="dropdown dropdown-end ">
+            //   <label
+            //     tabIndex={0}
+            //     className="tooltip tooltip-bottom mr-4  btn btn-ghost  btn-circle avatar"
+            //     // data-tip={tooltipString}
+            //   >
+            //     <div className="w-12 rounded-full ">
+            //       <img
+            //         src={
+            //           user?.photoURL ||
+            //           "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+            //         }
+            //       />
+            //     </div>
+            //     <li className="font-semibold mt-10 w-20 bg-slate-200">
+            //       <NavLink to="/my"> My Submission</NavLink>
+            //     </li>
                 
                  
                
-{/* 
+
+            //     <button
+            //       className="btn text-white absolute mt-6 right-0 p-2 rounded-md shadow-md opacity-0 hover:opacity-100 transition-opacity hover:bg-blue-800 duration-300"
+            //       onClick={logOut}
+            //     >
+            //       LogOut
+            //     </button>
+            //   </label>
+            // </div>
+             
+            <div className="dropdown dropdown-end">
+            <label
+              tabIndex={0}
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-12 rounded-full">
+                <img
+                  src={
+                    user?.photoURL ||
+                    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  }
+                  alt="User Avatar"
+                />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-compact dropdown-content mt-1  shadow bg-base-100 rounded-box  -mr-16"
+            >
+              <li className=" mb-2">
+                <NavLink to="/my">My Submission</NavLink>
+              </li>
+              <li>
                 <button
-                  className="btn text-white absolute mt-6 right-0 p-2 rounded-md shadow-md opacity-0 hover:opacity-100 transition-opacity hover:bg-blue-800 duration-300"
+                  className="btn text-white bg-red-500 w-full"
                   onClick={logOut}
                 >
                   LogOut
-                </button> */}
-              </label>
-            </div>
+                </button>
+              </li>
+            </ul>
+          </div>
+
           ) : (
     
 

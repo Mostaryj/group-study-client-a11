@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../Hook/useAuth";
 import { toast } from "react-toastify";
@@ -7,16 +7,16 @@ import { toast } from "react-toastify";
 const Assignments = () => {
   // const loadedAssignment = useLoaderData();
   const [assignments, setAssignments] = useState([]);
-  const [filters, setFilters] = useState([]);
-  const {user} = useAuth();
+  const [filteredAssignments, setFilteredAssignments] = useState([]); 
+  const {user} = useAuth() || {};
 
   const handleFilter = (e) => {
     const selectedValue = e.target.value;
 
-    const newFiltered = filters.filter(
-      (newAssignment) => newAssignment.customization === selectedValue
+    const newFiltered = assignments.filter(
+      (assignment) => assignment.customization === selectedValue
     );
-     setFilters(newFiltered);
+    setFilteredAssignments(newFiltered);
     console.log(newFiltered)
   };
 
@@ -26,7 +26,7 @@ const Assignments = () => {
       .then((data) => {
         console.log(data);
         setAssignments(data);
-        setFilters(data);
+        setFilteredAssignments(data);
 
        
       })
@@ -69,7 +69,7 @@ const Assignments = () => {
               );
               setAssignments(remaining);
 
-              setFilters(remaining);
+              setFilteredAssignments(remaining);
             }
           });
       }
@@ -85,7 +85,7 @@ const Assignments = () => {
         <div className="flex items-center justify-center p-2 gap-4 mb-6">
           <span>Customization filter:</span>
           <select
-            name="sort"
+            name="level"
             onChange={handleFilter}
             className="border min-w-0 px-4 py-2 rounded-md bg-gray-200"
             defaultValue={""}
@@ -93,9 +93,9 @@ const Assignments = () => {
             <option value="" disabled>
               Select Customization
             </option>
-            <option value="Hard">Hard</option>
-            <option value="Medium">Medium</option>
-            <option value="Easy">Easy</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
           </select>
         </div>
         {/*  */}
@@ -114,7 +114,7 @@ const Assignments = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {filters.map((assignment, index) => (
+            {filteredAssignments.map((assignment, index) => (
               <tr key={assignment._id}>
                 <td>{index + 1}</td>
                 <td>

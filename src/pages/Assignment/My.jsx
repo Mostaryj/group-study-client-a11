@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../Hook/useAuth"
-import { useLoaderData } from "react-router-dom";
 const My = () => {
      const [mySubmit, setMySubmit] = useState();
    const { user } = useAuth() || {};
-   const loadedAssignment=useLoaderData();
 
+ 
    useEffect(() => {
-    fetch(`https://group-study-server-eight.vercel.app/submit-email/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-         setMySubmit(data);
-
-       
-      })
-     
-       .catch((err) => console.log(err.message));
-   }, []);
+    if (user?.email) {
+      fetch(`https://group-study-server-eight.vercel.app/submit-email/${user.email}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Failed to fetch assignments");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setMySubmit(data);
+        })
+        .catch((err) => console.error(err.message));
+    }
+  }, [user]);
  
 
     return (
@@ -42,17 +45,20 @@ const My = () => {
             </tr>
           </thead>
           <tbody>
+
+         
               {/* row 1 */}
-              {loadedAssignment && loadedAssignment.map((assignment, index) => ( 
+              {mySubmit && mySubmit.map((assignment, index) => ( 
     <tr key={assignment._id}> 
         <td>{index+1}</td> 
-        {/* <td><img className="w-20 rounded-lg" src={assignment.photo} alt="" /></td>  */}
         <td>{assignment.title}</td>
         <td>{assignment.date}</td>
         <td>{assignment.level}</td>
         <td>{assignment.name}</td> 
-    </tr> 
-))} 
+
+    </tr>  
+ ))}  
+
           </tbody>
         </table>  
       </div>
