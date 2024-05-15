@@ -30,7 +30,7 @@ const My = () => {
           {/* head */}
           <thead>
             <tr>
-            {/* <th></th> */}
+            <th></th>
               {/* <th>Thumbnail</th> */}
               <th>Title</th>
               <th>Date</th>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../Hook/useAuth";
+import { toast } from "react-toastify";
 
 const Assignments = () => {
   // const loadedAssignment = useLoaderData();
@@ -33,8 +34,11 @@ const Assignments = () => {
       .catch((err) => console.log(err.message));
   }, [user]);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id,email) => {
     // console.log(_id);
+    if(email !== user?.email){
+      return toast.error('This is not your')
+    }
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -141,7 +145,7 @@ const Assignments = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => handleDelete(assignment._id)}
+                    onClick={() => handleDelete(assignment._id,user.email)}
                     className="btn bg-red-500"
                   >
                     Delete
@@ -157,18 +161,3 @@ const Assignments = () => {
 };
 
 export default Assignments;
-//<div className="p-4">
-{
-  /* <Link to={`/update/${craft._id}`}>
-<button className="btn bg-green-600 text-white">
-  Update
-</button>
-</Link>
-
-<button
-onClick={() => handleDelete(craft._id)}
-className="btn text-white bg-orange-600"
->
-Delete
-</button> */
-}

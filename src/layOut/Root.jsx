@@ -7,25 +7,26 @@ import Nav from "../shared/Nav";
 import Footer from "../shared/Footer";
 
 const Root = () => {
-  
-
-const {  loading } = useAuth();
-if(loading){
-   return <div className="flex justify-center mt-10 items-center"><span className="loading loading-spinner loading-lg "></span></div>
-
- }
+  const { loading } = useAuth();
+  if (loading) {
+    return (
+      <div className="flex justify-center mt-10 items-center">
+        <span className="loading loading-spinner loading-lg "></span>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="max-w-6xl mx-auto p-2">
         <Nav></Nav>
-        <Outlet></Outlet>
-     
+        <div className="">
+          <Outlet></Outlet>
+        </div>
       </div>
-      <div>
-      </div>
+      <div></div>
       <ToastContainer></ToastContainer>
-       <Footer></Footer>
+      <Footer></Footer>
     </div>
   );
 };

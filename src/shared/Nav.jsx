@@ -62,8 +62,8 @@ const Nav = () => {
   );
 
   return (
-    <div className=" ">
-      <div className="navbar bg-base-200 border-b-2 ">
+    <div className="">
+      <div className="navbar   border-b-2 ">
         <div className="navbar-start ">
           <div className="dropdown">
             <div
@@ -128,13 +128,13 @@ const Nav = () => {
                 
                  
                
-
+{/* 
                 <button
                   className="btn text-white absolute mt-6 right-0 p-2 rounded-md shadow-md opacity-0 hover:opacity-100 transition-opacity hover:bg-blue-800 duration-300"
                   onClick={logOut}
                 >
                   LogOut
-                </button>
+                </button> */}
               </label>
             </div>
           ) : (

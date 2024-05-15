@@ -1,13 +1,12 @@
  import {  useLoaderData } from "react-router-dom";
- //import useAuth from "../../Hook/useAuth";
  import { useState, useEffect } from "react";
 
 
 const Pending = () => {
    const loadedAssignment = useLoaderData();
-  //  const {user} = useAuth();
 
     const [assignments, setAssignments] = useState([]);
+   
 
  
 
@@ -35,11 +34,9 @@ const Pending = () => {
             <tr>
               <th></th>
               <th>Title</th>
-              <th>Examinee</th>
-              <th>Email</th>
-              <th>PDF/Doc Link</th>
-              <th>Note</th>
               <th>Mark</th>
+              <th>Examinee Name</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -48,18 +45,9 @@ const Pending = () => {
               <tr key={assignment._id}>
                 <td>{index + 1}</td>
                 <td>{assignment.title}</td>
-                <td>{assignment.name}</td>
-                <td>{assignment.email}</td>
-                <td>
-                 {assignment.pdf}
-                  
-                </td>
-                <td>{assignment.note}</td>
-                <td>{assignment.date}</td>
-                <td>{assignment.level}</td>
-                
                 <td>{assignment.marks}</td>
-                <td><button className="btn">Mark</button></td>
+                <td>{assignment.name}</td>
+                <td><button className="btn bg-blue-700 text-white"> Give Mark</button></td>
               </tr>
             ))}
           </tbody>

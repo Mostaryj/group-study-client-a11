@@ -67,8 +67,9 @@ import Update from "../pages/Assignment/Update";
       },
       
       {
-        path: '/take',
-        element: <Take></Take>
+        path: '/take/:id',
+        element: <Take></Take>,
+        loader: () => fetch('https://group-study-server-eight.vercel.app/study'),
       },
       {
         path: '/pending',
