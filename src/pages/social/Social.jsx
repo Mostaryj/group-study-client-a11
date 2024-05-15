@@ -42,7 +42,7 @@ const Social = () => {
         Do not have an account?{" "}
         <Link to="/register">
           {" "}
-          <span className="text-blue-600">Register Now</span>
+          <span className="bg-emerald-600 text-white">Register Now</span>
         </Link>
       </p>
     </div>
