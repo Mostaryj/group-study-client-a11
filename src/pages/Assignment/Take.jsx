@@ -32,7 +32,6 @@ console.log(card)
          title:card.title,
           marks:card.marks,
          date:card.date,
-        // description,
          level:card.level,   
       };
   
@@ -77,7 +76,7 @@ console.log(card)
     <div>
       <h1 className="text-3xl font-bold text-center mt-6">Take assignment</h1>
       <form onSubmit={handleSubmit}>
-          <div className="md:flex mb-8">
+          <div className=" mb-8">
           <div className="form-control  md:w-1/2">
             <label className="label">
               <span className="label-text"> PDF/DOC</span>
@@ -96,7 +95,7 @@ console.log(card)
          
           </div>
           <div>
-            <h3>Quick Note:</h3>
+            <h3>Quick Notes:</h3>
             <textarea
               className="textarea textarea-bordered h-[150px] w-full"
               placeholder="Note"
