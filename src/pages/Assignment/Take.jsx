@@ -79,7 +79,7 @@ console.log(card)
           <div className=" mb-8">
           <div className="form-control  md:w-1/2">
             <label className="label">
-              <span className="label-text"> PDF/DOC</span>
+              <span className="label-text"> PDF/DOC:</span>
             </label>
             <label className="input-group">
               <input
