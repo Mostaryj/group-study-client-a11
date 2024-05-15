@@ -7,7 +7,6 @@ const Pending = () => {
 
   const [assignments, setAssignments] = useState([]);
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -48,7 +47,7 @@ const Pending = () => {
 
     // const handleDelete = (id) => {
     //   // console.log(_id);
-    
+
     //   Swal.fire({
     //     title: "Are you sure?",
     //     text: "You won't be able to revert this!",
@@ -60,32 +59,30 @@ const Pending = () => {
     //   }).then((result) => {
     //     if (result.isConfirmed) {
     //       console.log("delete confirm");
-  
-        //   fetch(`https://group-study-server-eight.vercel.app/study/${id}`, {
-        //     method: "DELETE",
-        //   })
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //       console.log(data);
-        //       if (data.deletedCount > 0) {
-        //         Swal.fire({
-        //           title: "Deleted!",
-        //           text: "Your Art has been deleted.",
-        //           icon: "success",
-        //         });
-  
-        //         const remaining = assignments.filter(
-        //           (assignment) => assignment._id !== id
-        //         );
-        //         setAssignments(remaining);
-  
-        //       }
-        //     });
-        // }
-      // });
+
+    //   fetch(`https://group-study-server-eight.vercel.app/study/${id}`, {
+    //     method: "DELETE",
+    //   })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       console.log(data);
+    //       if (data.deletedCount > 0) {
+    //         Swal.fire({
+    //           title: "Deleted!",
+    //           text: "Your Art has been deleted.",
+    //           icon: "success",
+    //         });
+
+    //         const remaining = assignments.filter(
+    //           (assignment) => assignment._id !== id
+    //         );
+    //         setAssignments(remaining);
+
+    //       }
+    //     });
+    // }
+    // });
     // };
-
-
   };
 
   useEffect(() => {
@@ -139,17 +136,33 @@ const Pending = () => {
                     </button>
                     <dialog id="my_modal_4" className="modal ">
                       <div className="modal-box bg-red-200">
-                        
-                <div className="modal-action"></div>
+                        <div className="modal-action"></div>
+                        <Link to="/">
+                          {" "}
+                          <button className="btn btn-circle btn-outline">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-6 w-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                        </Link>
                         <div className="modal-action ">
                           <div method="dialog">
                             <form onSubmit={handleSubmit} className=" mr-20">
                               <div className="flex sm:flex-col md:justify-between mb-8">
                                 <div className="form-control gap-2 md:w-1/2">
                                   <label className="label">
-                                    <span className="label-text">
-                                      PDF/Doc: 
-                                    </span>
+                                    <span className="label-text">PDF/Doc:</span>
                                   </label>
 
                                   <label className="input-group">
@@ -158,16 +171,12 @@ const Pending = () => {
                                       name=""
                                       placeholder={assignment.pdf}
                                       className="input input-bordered w-full "
-                                      
                                     />
                                   </label>
-                                 
                                 </div>
                                 <div className="form-control gap-2 md:w-1/2">
                                   <label className="label">
-                                    <span className="label-text">
-                                      Note:
-                                    </span>
+                                    <span className="label-text">Note:</span>
                                   </label>
 
                                   <label className="input-group">
@@ -178,7 +187,6 @@ const Pending = () => {
                                       className="input input-bordered w-full"
                                     />
                                   </label>
-                                 
                                 </div>
                                 <div className="form-control gap-2 md:w-1/2">
                                   <label className="label">
@@ -212,7 +220,6 @@ const Pending = () => {
                                   className="btn btn-block bg-green-300"
                                 />
                               </div>
-                            <Link to='/'>  <button className="btn">Go Back</button></Link>
                             </form>
                           </div>
                         </div>
