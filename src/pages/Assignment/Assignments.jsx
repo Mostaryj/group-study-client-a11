@@ -35,9 +35,9 @@ const Assignments = () => {
   }, [user]);
 
   const handleDelete = (id,email) => {
-    // console.log(_id);
+     //console.log(id);
     if(email !== user?.email){
-      return toast.error('This is not your')
+      return toast.error("You can only delete your own assignments.");
     }
     Swal.fire({
       title: "Are you sure?",
@@ -71,6 +71,7 @@ const Assignments = () => {
 
               setFilteredAssignments(remaining);
             }
+           
           });
       }
     });
@@ -145,7 +146,7 @@ const Assignments = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => handleDelete(assignment._id,user.email)}
+                    onClick={() => handleDelete(assignment._id, assignment.email)}
                     className="btn bg-red-500"
                   >
                     Delete

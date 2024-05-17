@@ -15,7 +15,7 @@ const CreateAssignment = () => {
     const form = event.target;
     const photo = form.photo.value;
     const name = form.name.value;
-    const email = form.email.value;
+    // const email = form.email.value;
     const title = form.title.value;
     const marks = form.marks.value;
     const description = form.description.value;
@@ -25,7 +25,7 @@ const CreateAssignment = () => {
     const newAssignment = {
       photo,
       name,
-      email,
+      email:user.email,
       title,
       marks,
       date,
