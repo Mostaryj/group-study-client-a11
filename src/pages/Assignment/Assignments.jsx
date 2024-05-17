@@ -5,19 +5,23 @@ import useAuth from "../../Hook/useAuth";
 import { toast } from "react-toastify";
 
 const Assignments = () => {
-  // const loadedAssignment = useLoaderData();
   const [assignments, setAssignments] = useState([]);
   const [filteredAssignments, setFilteredAssignments] = useState([]); 
   const {user} = useAuth() || {};
 
   const handleFilter = (e) => {
     const selectedValue = e.target.value;
+    if (selectedValue === "") {
+      setFilteredAssignments(assignments);
+      return;
+    }
 
     const newFiltered = assignments.filter(
-      (assignment) => assignment.customization === selectedValue
+      (assignment) => assignment.level === selectedValue
     );
+
     setFilteredAssignments(newFiltered);
-    console.log(newFiltered)
+     console.log(newFiltered)
   };
 
   useEffect(() => {
