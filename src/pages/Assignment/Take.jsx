@@ -12,8 +12,10 @@ const Take = () => {
   //  console.log(cards);
   const { id } = useParams();
   const card = cards.find((card) => card._id == id);
-console.log(card)
-  const handleSubmit = (e) => {
+console.log(card);
+
+
+  const handleSubmit = (e,id) => {
     e.preventDefault();
     const form = e.target;
     const pdf = form.pdf.value;
@@ -24,11 +26,10 @@ console.log(card)
     const submitAssignment = {
         pdf,
         note,  
-         photo:user.photoURL,
+        //  photo:user.photoURL,
          name:user.displayName,
          email:user.email,
          _id: id,
-
          title:card.title,
           marks:card.marks,
          date:card.date,
@@ -39,7 +40,7 @@ console.log(card)
       console.log(form);
 
     //    //send data to server
-    fetch("https://group-study-server-eight.vercel.app/submit/", {
+    fetch("https://group-study-server-eight.vercel.app/submit/",{
         method: "POST",
         headers: {
           "content-type": "application/json",

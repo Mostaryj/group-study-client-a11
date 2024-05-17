@@ -64,7 +64,7 @@ const Assignments = () => {
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
-                text: "Your Art has been deleted.",
+                text: "Your Assignment has been deleted.",
                 icon: "success",
               });
 
