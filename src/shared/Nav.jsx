@@ -30,20 +30,20 @@ const Nav = () => {
   const navLinks = (
     <>
       <li className="font-semibold " data-tip="Tooltip for Home">
-        <NavLink to="/">Home</NavLink>
+        <Link to="/">Home</Link>
       </li>
       <li className="font-semibold">
-        <NavLink to="/assignments">Assignments</NavLink>
+        <Link to="/assignments">Assignments</Link>
       </li>
       {user && (
         <li className="font-semibold">
-          <NavLink to="/create">Create Assignments</NavLink>
+          <Link to="/create">Create Assignments</Link>
         </li>
       )}
 
       {user && (
         <li className="font-semibold">
-          <NavLink to="/pending">Pending Assignments</NavLink>
+          <Link to="/pending">Pending Assignments</Link>
         </li>
       )}
    
@@ -53,7 +53,7 @@ const Nav = () => {
 
   return (
     <div className="">
-      <div className="navbar   border-b-2 border-blue-500">
+      <div className="navbar   border-b-2 border-blue-500 ">
         <div className="navbar-start ">
           <div className="dropdown">
             <div
@@ -83,12 +83,12 @@ const Nav = () => {
               {navLinks}
             </ul>
           </div>
-          <a className=" font-bold lg:text-2xl  sm:flex items-center justify-center text-blue-800 bg-clip-text">
+          <p className=" font-bold lg:text-2xl  sm:flex items-center justify-center text-blue-800 dark:text-purple-500 bg-clip-text">
             <span>
               <img src={icon} alt="" className="w-10 h-10 hidden lg:block " />
             </span>
             StudyHub
-          </a>
+          </p>
         </div>
         <div className="navbar-center  hidden sm:block md:flex lg:flex">
           <ul className="menu menu-horizontal   px-1 gap-2">{navLinks}</ul>
@@ -102,7 +102,7 @@ const Nav = () => {
               tabIndex={0}
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-12 rounded-full">
+              <div className="w-12 rounded-full border-2">
                 <img
                   src={
                     user?.photoURL ||
@@ -147,7 +147,7 @@ const Nav = () => {
             </div>
           )}
         </div>
-        <label className="cursor-pointer grid place-items-center ">
+        <label className="cursor-pointer grid place-items-center ml-4">
           <input
             onChange={handleToggle}
             type="checkbox"

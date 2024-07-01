@@ -10,7 +10,7 @@ const AssignmentDetails = () => {
   return (
     <div>
       <div className="hero  bg-yellow-50">
-        <div className="hero-content flex-col lg:flex-row">
+        <div className="hero-content flex-col lg:flex-row dark:text-black">
           <img
             src={card.photo}
             className=" rounded-lg "

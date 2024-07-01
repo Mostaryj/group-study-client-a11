@@ -1,89 +1,10 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
 const Pending = () => {
   const loadedAssignment = useLoaderData();
-
   const [assignments, setAssignments] = useState([]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const giveMark = form.giveMark.value;
-    const feedBack = form.feedBack.value;
-
-    const submit = {
-      giveMark,
-      feedBack,
-    };
-
-    console.log(submit);
-
-    //   // send data to the server
-    //   fetch("https://group-study-server-eight.vercel.app/submit/", {
-    //     method: "POST",
-    //     headers: {
-    //       "content-type": "application/json",
-    //     },
-    //     body: JSON.stringify(submit),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       console.log(data);
-
-    //       if (data.message) {
-    //         Swal.fire({
-    //           title: "Success!",
-    //           text: "request added successfully",
-    //           icon: "success",
-    //           confirmButtonText: "Cool",
-    //         });
-    //       }
-
-    //       document.getElementById("my_modal_4").close();
-    //     });
-    // };
-
-    // const handleDelete = (id) => {
-    //   // console.log(_id);
-
-    //   Swal.fire({
-    //     title: "Are you sure?",
-    //     text: "You won't be able to revert this!",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Yes, delete it!",
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       console.log("delete confirm");
-
-    //   fetch(`https://group-study-server-eight.vercel.app/study/${id}`, {
-    //     method: "DELETE",
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       console.log(data);
-    //       if (data.deletedCount > 0) {
-    //         Swal.fire({
-    //           title: "Deleted!",
-    //           text: "Your Art has been deleted.",
-    //           icon: "success",
-    //         });
-
-    //         const remaining = assignments.filter(
-    //           (assignment) => assignment._id !== id
-    //         );
-    //         setAssignments(remaining);
-
-    //       }
-    //     });
-    // }
-    // });
-    // };
-  };
 
   useEffect(() => {
     setAssignments(loadedAssignment);
@@ -99,47 +20,104 @@ const Pending = () => {
       .catch((error) => console.error("Error fetching assignments:", error));
   }, [loadedAssignment]);
 
+  const handleSubmit = (e, assignmentId) => {
+    e.preventDefault();
+    const form = e.target;
+    const giveMark = form.giveMark.value;
+    const feedBack = form.feedBack.value;
+
+    const submit = {
+      giveMark,
+      feedBack,
+    };
+
+    console.log(submit);
+
+    // Update the assignment status to "Completed"
+    setAssignments((prevAssignments) =>
+      prevAssignments.map((assignment) =>
+        assignment._id === assignmentId
+          ? { ...assignment, status: "Completed", giveMark, feedBack }
+          : assignment
+      )
+    );
+
+    // Make an API call to update the assignment status in the backend
+    fetch(`https://group-study-server-eight.vercel.app/submit/${assignmentId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: "Completed", ...submit }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update assignment");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Assignment updated successfully:", data);
+        Swal.fire("Success", "Assignment marked as completed", "success");
+
+        // Close the modal
+        const modal = document.getElementById(`modal_${assignmentId}`);
+        modal.close();
+      })
+      .catch((error) => {
+        console.error("Error updating assignment:", error);
+        Swal.fire("Error", "Failed to update assignment", "error");
+      });
+  };
+
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center mt-6">
+      <h1 className="text-4xl font-bold text-center mt-6 dark:text-gray-200">
         Pending Assignment
       </h1>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mt-6">
         <table className="table ">
-          {/* head */}
           <thead>
-            <tr>
-              <th></th>
+            <tr className="text-black dark:text-gray-300">
+              <th>#</th>
               <th>Title</th>
               <th>Mark</th>
               <th>Examinee Name</th>
-              <th></th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
             {assignments.map((assignment, index) => (
               <tr key={assignment._id}>
                 <td>{index + 1}</td>
                 <td>{assignment.title}</td>
                 <td>{assignment.marks}</td>
                 <td>{assignment.name}</td>
+                <td>{assignment.status}</td>
                 <td>
                   <div>
                     <button
                       onClick={() =>
-                        document.getElementById("my_modal_4").showModal()
+                        document
+                          .getElementById(`modal_${assignment._id}`)
+                          .showModal()
                       }
                       className="btn bg-blue-700 text-white"
                     >
                       Give Mark
                     </button>
-                    <dialog id="my_modal_4" className="modal ">
-                      <div className="modal-box bg-red-200">
-                        <div className="modal-action"></div>
-                        <Link to="/">
-                          {" "}
-                          <button className="btn btn-circle btn-outline">
+                    <dialog id={`modal_${assignment._id}`} className="modal">
+                      <div className="modal-box">
+                        <div className="modal-action">
+                          <button
+                            onClick={() =>
+                              document
+                                .getElementById(`modal_${assignment._id}`)
+                                .close()
+                            }
+                            className="btn btn-circle btn-outline"
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-6 w-6"
@@ -155,74 +133,64 @@ const Pending = () => {
                               />
                             </svg>
                           </button>
-                        </Link>
-                        <div className="modal-action ">
-                          <div method="dialog">
-                            <form onSubmit={handleSubmit} className=" mr-20">
-                              <div className="flex sm:flex-col md:justify-between mb-8">
-                                <div className="form-control gap-2 md:w-1/2">
-                                  <label className="label">
-                                    <span className="label-text">PDF/Doc:</span>
-                                  </label>
-
-                                  <label className="input-group">
-                                    <input
-                                      type="text"
-                                      name=""
-                                      placeholder={assignment.pdf}
-                                      className="input input-bordered w-full "
-                                    />
-                                  </label>
-                                </div>
-                                <div className="form-control gap-2 md:w-1/2">
-                                  <label className="label">
-                                    <span className="label-text">Note:</span>
-                                  </label>
-
-                                  <label className="input-group">
-                                    <input
-                                      type="text"
-                                      name=""
-                                      placeholder={assignment.note}
-                                      className="input input-bordered w-full"
-                                    />
-                                  </label>
-                                </div>
-                                <div className="form-control gap-2 md:w-1/2">
-                                  <label className="label">
-                                    <span className="label-text">
-                                      Give Mark & Feedback:
-                                    </span>
-                                  </label>
-
-                                  <label className="input-group">
-                                    <input
-                                      type="text"
-                                      name="giveMark"
-                                      placeholder="mark"
-                                      className="input input-bordered w-full"
-                                    />
-                                  </label>
-                                  <div>
-                                    <textarea
-                                      name="feedBack"
-                                      id=""
-                                      className="rounded-lg text-gray-400  p-2 w-full"
-                                    >
-                                      Feedback
-                                    </textarea>
-                                  </div>
-                                </div>
-
-                                <input
-                                  type="submit"
-                                  value="Request"
-                                  className="btn btn-block bg-green-300"
-                                />
-                              </div>
-                            </form>
-                          </div>
                         </div>
+                        <form onSubmit={(e) => handleSubmit(e, assignment._id)}>
+                          <div className="flex sm:flex-col md:justify-between mb-8">
+                            <div className="form-control gap-2 md:w-1/2">
+                              <label className="label">
+                                <span className="label-text">PDF/Doc:</span>
+                              </label>
+                              <label className="input-group">
+                                <input
+                                  type="text"
+                                  name=""
+                                  placeholder={assignment.pdf}
+                                  className="input input-bordered w-full"
+                                />
+                              </label>
+                            </div>
+                            <div className="form-control gap-2 md:w-1/2">
+                              <label className="label">
+                                <span className="label-text">Note:</span>
+                              </label>
+                              <label className="input-group">
+                                <input
+                                  type="text"
+                                  name=""
+                                  placeholder={assignment.note}
+                                  className="input input-bordered w-full"
+                                />
+                              </label>
+                            </div>
+                            <div className="form-control gap-2 md:w-1/2">
+                              <label className="label">
+                                <span className="label-text">Give Mark:</span>
+                              </label>
+                              <label className="input-group">
+                                <input
+                                  type="text"
+                                  name="giveMark"
+                                  placeholder="mark"
+                                  className="input input-bordered w-full"
+                                />
+                              </label>
+                              <div>
+                                <p>FeedBack:</p>
+                                <textarea
+                                  name="feedBack"
+                                  id=""
+                                  placeholder="feedBack"
+                                  className="rounded-lg text-gray-400 p-2 w-full border-2 mt-2 mb-4"
+                                ></textarea>
+                              </div>
+                            </div>
+                            <input
+                              type="submit"
+                              value="Request"
+                              className="btn btn-block bg-green-300"
+                            />
+                          </div>
+                        </form>
                       </div>
                     </dialog>
                   </div>

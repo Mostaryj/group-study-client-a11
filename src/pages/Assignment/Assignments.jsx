@@ -3,15 +3,21 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../Hook/useAuth";
 import { toast } from "react-toastify";
+import { FaTrash } from "react-icons/fa";
 
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
   const [filteredAssignments, setFilteredAssignments] = useState([]); 
-  const {user} = useAuth() || {};
+  const {user} = useAuth() ;
+  // console.log(user, 'user')
 
   const handleFilter = (e) => {
     const selectedValue = e.target.value;
     if (selectedValue === "") {
+      setFilteredAssignments(assignments);
+      return;
+    }
+    if(selectedValue === 'all'){
       setFilteredAssignments(assignments);
       return;
     }
@@ -28,7 +34,7 @@ const Assignments = () => {
     fetch('https://group-study-server-eight.vercel.app/study/')
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setAssignments(data);
         setFilteredAssignments(data);
 
@@ -38,11 +44,11 @@ const Assignments = () => {
       .catch((err) => console.log(err.message));
   }, [user]);
 
-  const handleDelete = (id,email) => {
-     //console.log(id);
-    if(email !== user?.email){
+  const handleDelete = (id, email) => {
+    if (email !== user?.email) {
       return toast.error("You can only delete your own assignments.");
     }
+  
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -53,37 +59,47 @@ const Assignments = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("delete confirm");
+        fetch(`https://group-study-server-eight.vercel.app/study/${id}?email=${user.email}`, {
+          // fetch(`http://localhost:5000/study/${id}?email=${user.email}`, {
 
-        fetch(`https://group-study-server-eight.vercel.app/study/${id}`, {
           method: "DELETE",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`,  
+          }
         })
-          .then((res) => res.json())
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return res.json();
+          })
           .then((data) => {
-            console.log(data);
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
                 text: "Your Assignment has been deleted.",
                 icon: "success",
               });
-
+  
               const remaining = assignments.filter(
                 (assignment) => assignment._id !== id
               );
               setAssignments(remaining);
-
               setFilteredAssignments(remaining);
             }
-           
+          })
+          .catch((error) => {
+            console.error('There was a problem with the fetch operation:', error);
           });
       }
     });
   };
+  
 
   return (
     <div>
-      <h1 className="lg:text-4xl text-2xl font-bold font-pop text-center mt-4">
+      <h1 className="lg:text-4xl text-2xl font-bold font-pop text-center  mt-4">
         All Assignments{" "}
       </h1>
         {/* filter */}
@@ -98,6 +114,7 @@ const Assignments = () => {
             <option value="" disabled>
               Select Customization
             </option>
+            <option value="all">All</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -108,13 +125,16 @@ const Assignments = () => {
         <table className="table ">
           {/* head */}
           <thead>
-            <tr>
-              <th></th>
+            <tr className="font-bold text-black dark:text-white">
+              <th>#</th>
               <th>Thumbnail</th>
               <th>Title</th>
               <th>Date</th>
               <th>Level</th>
               <th>Marks</th>
+              <th>View</th>
+              <th>Update</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -151,9 +171,8 @@ const Assignments = () => {
                 <td>
                   <button
                     onClick={() => handleDelete(assignment._id, assignment.email)}
-                    className="btn bg-red-500"
                   >
-                    Delete
+                    <FaTrash className="text-red-500 w-8 h-6"></FaTrash>
                   </button>
                 </td>
               </tr>

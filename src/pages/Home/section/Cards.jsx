@@ -29,7 +29,8 @@ const Cards = ({card}) => {
             <p>Time: {time}</p>
             </div>
            <Link to={`/details/${id}`}>
-           <button className="btn w-full bg-emerald-600 text-white">Details</button></Link>
+           <button className="btn w-full bg-emerald-600 text-white mt-4">Details</button>
+           </Link>
            
           </div>
         </div>

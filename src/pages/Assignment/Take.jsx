@@ -33,11 +33,11 @@ console.log(card);
          title:card.title,
           marks:card.marks,
          date:card.date,
-         level:card.level,   
+         level:card.level, 
+         status: 'pending'  
       };
   
       console.log(submitAssignment);
-      console.log(form);
 
     //    //send data to server
     fetch("https://group-study-server-eight.vercel.app/submit/",{

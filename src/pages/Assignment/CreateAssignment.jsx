@@ -14,7 +14,7 @@ const CreateAssignment = () => {
     event.preventDefault();
     const form = event.target;
     const photo = form.photo.value;
-    const name = form.name.value;
+    // const name = form.name.value;
     // const email = form.email.value;
     const title = form.title.value;
     const marks = form.marks.value;
@@ -24,7 +24,7 @@ const CreateAssignment = () => {
 
     const newAssignment = {
       photo,
-      name,
+      name: user.displayName,
       email:user.email,
       title,
       marks,
@@ -71,7 +71,7 @@ const CreateAssignment = () => {
 
   return (
     <div>
-      <div className="bg-sky-100 p-4 md:p-24">
+      <div className="bg-gray-100 p-4 md:p-24 dark:text-black">
         <h2 className="text-3xl  font-pop text-center font-extrabold">
           Create Assignment
         </h2>
@@ -80,7 +80,7 @@ const CreateAssignment = () => {
           <div className="mb-8">
             <div className="form-control w-full">
               <label className="label">
-                <span className="label-text">Thumbnail Image URL:</span>
+                <span className="label-text dark:text-black">Thumbnail Image URL:</span>
               </label>
               <label className="input-group">
                 <input
@@ -95,7 +95,7 @@ const CreateAssignment = () => {
           </div>
 
            {/* form name and email */}
-           <div className="md:flex mb-8">
+           {/* <div className="md:flex mb-8">
             <div className="form-control  md:w-1/2">
               <label className="label">
                 <span className="label-text">Name:</span>
@@ -124,12 +124,12 @@ const CreateAssignment = () => {
                 />
               </label>
             </div>
-          </div>
+          </div> */}
           {/* form title name and marks */}
           <div className="md:flex mb-8">
             <div className="form-control  md:w-1/2">
               <label className="label">
-                <span className="label-text">Title</span>
+                <span className="label-text dark:text-black">Title</span>
               </label>
               <label className="input-group">
                 <input
@@ -143,7 +143,7 @@ const CreateAssignment = () => {
             </div>
             <div className="form-control  md:w-1/2 ml-4">
               <label className="label">
-                <span className="label-text">Marks: </span>
+                <span className="label-text dark:text-black">Marks: </span>
               </label>
               <label className="input-group">
                 <input
@@ -161,20 +161,21 @@ const CreateAssignment = () => {
           <div className="md:flex mb-8">
             <div className="form-control md:w-1/2">
               <label className="label">
-                <span className="label-text">Due Date:</span>
+                <span className="label-text dark:text-black">Due Date:</span>
               </label>
               <DatePicker
                 name="date"
-                className="w-full p-3 rounded-lg"
+                placeholderText="Date"
+                className="w-full p-3 rounded-lg dark:text-gray-400"
                 selected={dueDate}
                 onChange={(date) => setDueDate(date)}
               />
             </div>
-            <div className="form-control md:w-1/2 ml-4">
+            <div className="form-control md:w-1/2 ml-4 ">
               <label className="label">
-                <span className="label-text">Difficulty Level</span>
+                <span className="label-text dark:text-black">Difficulty Level</span>
               </label>
-              <select name="level" className="select text-gray-800">
+              <select name="level" className="select text-gray-800 dark:text-gray-400">
                 <option disabled selected>
                   Select One
                 </option>
@@ -189,7 +190,7 @@ const CreateAssignment = () => {
           <div>
             <h3>Description:</h3>
             <textarea
-              className="textarea textarea-bordered h-[150px] w-full"
+              className="textarea textarea-bordered h-[150px] w-full mt-2 mb-6"
               placeholder="About your assignment"
               name="description"
             ></textarea>

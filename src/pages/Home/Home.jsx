@@ -9,8 +9,8 @@ const Home = () => {
       
             <Banner></Banner>
            <div>
-           <h1 className="text-2xl md:text-4xl font-bold text-center mt-8">Assignment Section</h1>
-           <p className="text-center ">
+           <h1 className="text-2xl md:text-4xl font-bold text-center mt-8 dark:text-gray-300">Assignment Section</h1>
+           <p className="text-center dark:text-gray-300">
            Expand your horizons with our challenging assignments designed to push your limits <br /> and enhance your knowledge
            </p>
            </div>

@@ -15,4 +15,4 @@ StudyHub is an online platform designed to help students enhance their learning 
 - **Personalized Study Plans:** Create personalized study plans and track your progress to stay organized and achieve your academic goals.
 - **Integration:** Seamlessly integrate with popular learning management systems and educational platforms for easy access to course materials and assignments.
 
-## Category: Assignment 0001
+<!-- ## Category: Assignment 0001 -->

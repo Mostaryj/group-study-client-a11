@@ -25,7 +25,7 @@ const googleProvider = new  GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-   console.log(user);
+  //  console.log(user);
 
   //loading
    const [loading, setLoading] = useState(true);
@@ -73,20 +73,7 @@ const AuthProvider = ({ children }) => {
  
   };
   
- 
-   // OBSERVER
-  //  useEffect(() => {
-  //   const unsubscribe = 
-  //  onAuthStateChanged(auth, (user) => {
-     
-  //       if(user){
-  //         setUser(user);
-  //       }
-  //         setLoading(false);
-    
-  //   });
-  //    return () => unsubscribe();
-  // }, []);
+
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
@@ -103,15 +90,7 @@ const AuthProvider = ({ children }) => {
           console.log("token" , res.data);
         })
       }
-      // else{
-      //   axios.post('https://group-study-server-eight.vercel.app/logout', loggedUser,{
-      //     withCredentials: true
-      //    })
-      //    .then(res =>{
-      //     console.log("token logout" , res.data);
-      //   })
-      // }
-
+   
       setLoading(false);
     });
     return () => {

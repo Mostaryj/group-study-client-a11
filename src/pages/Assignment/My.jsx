@@ -4,10 +4,11 @@ const My = () => {
      const [mySubmit, setMySubmit] = useState();
    const { user } = useAuth() || {};
 
- 
+
    useEffect(() => {
     if (user?.email) {
       fetch(`https://group-study-server-eight.vercel.app/submit-email/${user.email}`)
+      // fetch(`http://localhost:5000/submit-email/${user.email}`)
         .then((res) => {
           if (!res.ok) {
             throw new Error("Failed to fetch assignments");
@@ -15,7 +16,8 @@ const My = () => {
           return res.json();
         })
         .then((data) => {
-          console.log(data);
+        
+
           setMySubmit(data);
         })
         .catch((err) => console.error(err.message));
@@ -32,16 +34,15 @@ const My = () => {
         <table className="table ">
           {/* head */}
           <thead>
-            <tr>
-            <th></th>
-              {/* <th>Thumbnail</th> */}
+          <tr>
+              <th></th>
               <th>Title</th>
               <th>Date</th>
               <th>Level</th>
-              
+              <th>Status</th>
+              <th>Mark</th>
+              <th>Feedback</th>
               <th>User</th>
-
-             
             </tr>
           </thead>
           <tbody>
@@ -49,12 +50,15 @@ const My = () => {
          
               {/* row 1 */}
               {mySubmit && mySubmit.map((assignment, index) => ( 
-    <tr key={assignment._id}> 
-        <td>{index+1}</td> 
-        <td>{assignment.title}</td>
-        <td>{assignment.date}</td>
-        <td>{assignment.level}</td>
-        <td>{assignment.name}</td> 
+       <tr key={assignment._id}> 
+                <td>{index+1}</td> 
+               <td>{assignment.title}</td>
+                <td>{assignment.date}</td>
+                <td>{assignment.level}</td>
+                <td>{assignment.status}</td>
+                <td>{assignment.giveMark || 'N/A'}</td>
+                <td>{assignment.feedBack || 'N/A'}</td>
+                <td>{assignment.name}</td>
 
     </tr>  
  ))}  
