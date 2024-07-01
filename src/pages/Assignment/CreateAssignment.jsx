@@ -87,44 +87,14 @@ const CreateAssignment = () => {
                   type="text"
                   name="photo"
                   placeholder="Image URL"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full dark:text-gray-400"
                   required
                 />
               </label>
             </div>
           </div>
 
-           {/* form name and email */}
-           {/* <div className="md:flex mb-8">
-            <div className="form-control  md:w-1/2">
-              <label className="label">
-                <span className="label-text">Name:</span>
-              </label>
-              <label className="input-group">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder={user.displayName}
-                  className="input input-bordered w-full"
-                    readOnly
-                />
-              </label>
-            </div>
-            <div className="form-control  md:w-1/2 ml-4">
-              <label className="label">
-                <span className="label-text">Email: </span>
-              </label>
-              <label className="input-group">
-                <input
-                  type="text"
-                  name="email"
-                  placeholder={user.email}
-                  className="input input-bordered w-full"
-                 readOnly
-                />
-              </label>
-            </div>
-          </div> */}
+       
           {/* form title name and marks */}
           <div className="md:flex mb-8">
             <div className="form-control  md:w-1/2">
@@ -136,7 +106,7 @@ const CreateAssignment = () => {
                   type="text"
                   name="title"
                   placeholder="Title"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full dark:text-gray-400"
                   required
                 />
               </label>
@@ -150,7 +120,7 @@ const CreateAssignment = () => {
                   type="text"
                   name="marks"
                   placeholder="Marks"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full dark:text-gray-400"
                   required
                 />
               </label>
@@ -190,7 +160,7 @@ const CreateAssignment = () => {
           <div>
             <h3>Description:</h3>
             <textarea
-              className="textarea textarea-bordered h-[150px] w-full mt-2 mb-6"
+              className="textarea textarea-bordered h-[150px] w-full mt-2 mb-6 dark:text-gray-400"
               placeholder="About your assignment"
               name="description"
             ></textarea>

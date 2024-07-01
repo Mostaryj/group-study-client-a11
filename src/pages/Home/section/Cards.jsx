@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 
 const Cards = ({card}) => {
-    const {id, img, title, description, time, category} = card;
+    const {id, img, title, time, category} = card;
   return (
     <div>
       <div className=" p-4 shadow-md dark:bg-gray-50 dark:text-gray-800 mt-6">
@@ -18,7 +18,7 @@ const Cards = ({card}) => {
           </div>
           <div className="space-y-2">
             <a rel="noopener noreferrer" href="#" className="block">
-              <h3 className="text-xl font-bold dark:text-violet-600">
+              <h3 className="text-xl font-bold ">
                 {title}
               </h3>
             </a>

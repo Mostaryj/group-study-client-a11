@@ -72,13 +72,13 @@ const Pending = () => {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center mt-6 dark:text-gray-200">
+      <h1 className="text-4xl font-bold text-center mt-6 ">
         Pending Assignment
       </h1>
       <div className="overflow-x-auto mt-6">
         <table className="table ">
           <thead>
-            <tr className="text-black dark:text-gray-300">
+            <tr className="">
               <th>#</th>
               <th>Title</th>
               <th>Mark</th>
