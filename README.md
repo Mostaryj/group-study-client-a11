@@ -1,4 +1,4 @@
-# Online Group-Study Assignment
+## Online Group-Study based website
 
 
 ## Website name: StudyHub
