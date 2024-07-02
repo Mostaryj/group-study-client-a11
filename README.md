@@ -1,18 +1,37 @@
+# Online Group-Study Assignment
+
+
+## Website name: StudyHub
 **Live Site URL:** https://group-study-a15f6.web.app/
 
-
-
-# Website name: StudyHub
-
-
+## Project Overview
 StudyHub is an online platform designed to help students enhance their learning experience and academic performance.
+This website allows users to create, manage, and grade assignments collaboratively.
+
 
 ## Features
 
-- **Educational Resources:** Access a vast collection of study materials, notes, and textbooks to support your learning journey.
-- **Interactive Quizzes:** Test your knowledge with interactive quizzes and practice tests in various subjects.
-- **Discussion Forums:** Engage in discussions and join study groups for collaborative learning and peer support.
-- **Personalized Study Plans:** Create personalized study plans and track your progress to stay organized and achieve your academic goals.
-- **Integration:** Seamlessly integrate with popular learning management systems and educational platforms for easy access to course materials and assignments.
+- **User Authentication**: Register and login functionality with JWT token-based authentication.
+- **Assignment Creation**: Users can create assignments with titles, descriptions, marks, difficulty levels, and due dates.
+- **Assignment Management**: Update and delete assignments, filter assignments by difficulty level.
+
+
+## Technologies Used
+
+- **Frontend**: React, react-router-dom, axios, react-datepicker, JWT for authentication.
+- **Backend**: Node.js, Express.js, MongoDB for database management.
+- **Additional Tools**: Firebase for environment variables, integration with Vercel for deployment.
+
+## Cloning and Local Setup
+
+To run this project locally, follow these steps:
+
+1. Clone this repository.
+2. Install dependencies.(npm install)
+3. Set up MongoDB and Firebase credentials in environment variables.
+4. Clone the server repository.(https://github.com/mostaryjahan/group-study-server-a11)
+5. Start the frontend and backend servers.
+
+
 
 <!-- ## Category: Assignment 0001 -->
