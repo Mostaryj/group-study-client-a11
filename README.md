@@ -29,7 +29,7 @@ To run this project locally, follow these steps:
 1. Clone this repository.
 2. Install dependencies.(npm install)
 3. Set up MongoDB and Firebase credentials in environment variables.
-4. Clone the server repository.(https://github.com/mostaryjahan/group-study-server-a11)
+4. Clone the server repository.(https://github.com/mostaryjahan/group-study-server-a11.git)
 5. Start the frontend and backend servers.
 
 
