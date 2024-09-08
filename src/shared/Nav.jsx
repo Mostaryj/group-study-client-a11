@@ -1,8 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
-// import { renderToString } from "react-dom/server";
 import { useEffect, useState } from "react";
-//  import ReactTooltip from 'react-tooltip';
 import icon from "../assets/book.png";
 
 const Nav = () => {
@@ -29,20 +27,20 @@ const Nav = () => {
 
   const navLinks = (
     <>
-      <li className="font-semibold " data-tip="Tooltip for Home">
+      <li className="font-semibold md:text-lg">
         <Link to="/">Home</Link>
       </li>
-      <li className="font-semibold">
+      <li className="font-semibold md:text-lg">
         <Link to="/assignments">Assignments</Link>
       </li>
       {user && (
-        <li className="font-semibold">
+        <li className="font-semibold md:text-lg">
           <Link to="/create">Create Assignments</Link>
         </li>
       )}
 
       {user && (
-        <li className="font-semibold">
+        <li className="font-semibold md:text-lg">
           <Link to="/pending">Pending Assignments</Link>
         </li>
       )}
@@ -53,7 +51,7 @@ const Nav = () => {
 
   return (
     <div className="">
-      <div className="navbar   border-b-2 border-blue-500 ">
+      <div className="navbar ">
         <div className="navbar-start ">
           <div className="dropdown">
             <div
@@ -83,9 +81,9 @@ const Nav = () => {
               {navLinks}
             </ul>
           </div>
-          <p className=" font-bold lg:text-2xl  sm:flex items-center justify-center text-blue-800 dark:text-purple-500 bg-clip-text">
+          <p className=" font-bold text-xl lg:text-2xl  sm:flex items-center justify-center text-emerald-600 dark:text-green-500 bg-clip-text">
             <span>
-              <img src={icon} alt="" className="w-10 h-10 hidden lg:block " />
+              <img src={icon} alt="" className="w-10 h-10 hidden sm:block mr-2" />
             </span>
             StudyHub
           </p>
@@ -121,7 +119,7 @@ const Nav = () => {
               </li>
               <li>
                 <button
-                  className="btn text-white bg-red-500 w-full"
+                  className="btn text-white bg-red-500 hover:bg-red-800 w-full"
                   onClick={logOut}
                 >
                   LogOut
@@ -135,19 +133,19 @@ const Nav = () => {
 
             <div className="flex ">
               <Link to="/login">
-                <button className="btn bg-emerald-600  text-white">
+                <button className="btn bg-emerald-600 hover:bg-emerald-800  text-white">
                   Login
                 </button>
               </Link>
               <Link to="/register">
-                <button className="btn bg-emerald-600 text-white">
+                <button className="btn bg-emerald-600 hover:bg-emerald-800 text-white">
                   Register
                 </button>
               </Link>
             </div>
           )}
         </div>
-        <label className="cursor-pointer grid place-items-center ml-4">
+        <label className="cursor-pointer grid place-items-center ml-1">
           <input
             onChange={handleToggle}
             type="checkbox"

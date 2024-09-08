@@ -1,5 +1,5 @@
 import {  FaGoogle } from "react-icons/fa";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hook/useAuth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,26 +25,20 @@ const Social = () => {
 
 
   return (
-    <div className="p-4">
-      <p className="text-center"> Or, </p>
+    <div className="p-2">
       <div className="flex flex-col gap-2">
         <button
           onClick={() => handleSocial(googleLogin)}
-          className="btn btn-outline "
+          className="btn border-2 border-emerald-600 hover:hover:bg-emerald-600 hover:text-white"
         >
-          <FaGoogle className="text-blue-600" />
-          Login with Google
+                    Login with 
+
+          <FaGoogle className="text-blue-600 h-6 w-6 hover:text-white" />
         </button>
 
        
       </div>
-      <p className="text-center p-2">
-        Do not have an account?{" "}
-        <Link to="/register">
-          {" "}
-          <span className="bg-emerald-600 text-white">Register Now</span>
-        </Link>
-      </p>
+      
     </div>
   );
 };

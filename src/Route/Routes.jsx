@@ -8,7 +8,7 @@ import Root from "../layOut/Root";
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
-import Details from "../pages/Home/section/Details";
+import Details from "../pages/Home/CardSection/Details";
 import Assignments from "../pages/Assignment/Assignments";
 import CreateAssignment from "../pages/Assignment/CreateAssignment";
 import Pending from "../pages/Assignment/Pending";
