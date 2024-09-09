@@ -1,103 +1,123 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
 import Swal from "sweetalert2";
 import useAuth from "../../Hook/useAuth";
 
 const CreateAssignment = () => {
   const [dueDate, setDueDate] = useState(new Date());
-
-   const { user } = useAuth() || {};
+  const [uploading, setUploading] = useState(false);
+  const { user } = useAuth() || {};
 
   const handleAssignment = (event) => {
     event.preventDefault();
     const form = event.target;
-    const photo = form.photo.value;
-    // const name = form.name.value;
-    // const email = form.email.value;
     const title = form.title.value;
     const marks = form.marks.value;
     const description = form.description.value;
-    const date = form.date.value;
     const level = form.level.value;
+    const photoFile = form.photo.files[0]; // Get the selected image file
 
-    const newAssignment = {
-      photo,
-      name: user.displayName,
-      email:user.email,
-      title,
-      marks,
-      date,
-      description,
-      level,
-    };
+    // Create form data for imgbb
+    const formData = new FormData();
+    formData.append("image", photoFile);
 
-    console.log(newAssignment);
-    console.log(form);
+    const imgbbApiKey = import.meta.env.VITE_imgbbApiKey; 
 
-    //send data to server
-    fetch("https://group-study-server-eight.vercel.app/study/", {
+    setUploading(true);
+
+    // Upload image to imgbb
+    fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newAssignment),
+      body: formData,
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.insertedId) {
+      .then((imgData) => {
+        if (imgData.success) {
+          const photo = imgData.data.display_url; 
+
+          const newAssignment = {
+            photo,
+            name: user.displayName,
+            email: user.email,
+            title,
+            marks,
+            date: dueDate,
+            description,
+            level,
+          };
+
+          console.log(newAssignment);
+
+          // Send data to the server
+          fetch("https://group-study-server-eight.vercel.app/study/", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(newAssignment),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              if (data.insertedId) {
+                Swal.fire({
+                  title: "Created!",
+                  text: "Your assignment has been added.",
+                  icon: "success",
+                });
+              }
+              setUploading(false);
+            });
+        } else {
+          setUploading(false);
           Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, create it!",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire({
-                title: "Created!",
-                text: "Your assignment has been added.",
-                icon: "success",
-              });
-            }
+            title: "Image upload failed",
+            text: "Please try again.",
+            icon: "error",
           });
         }
+      })
+      .catch((error) => {
+        console.error("Image upload failed", error);
+        setUploading(false);
+        Swal.fire({
+          title: "Image upload failed",
+          text: "Please try again.",
+          icon: "error",
+        });
       });
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-emerald-100">
+    <div className="lg:max-w-3xl max-w-md mx-auto bg-emerald-100">
       <div className=" p-4  dark:text-black">
-        <h2 className="text-3xl  font-pop text-center font-extrabold">
+        <h2 className="text-xl md:text-3xl text-center font-bold mb-8">
           Create a new assignment
         </h2>
         <form onSubmit={handleAssignment} className="font-medium">
-          {/* photo url */}
+          {/* Photo file input */}
           <div className="mb-8">
             <div className="form-control w-full">
               <label className="label">
-                <span className="label-text dark:text-black">Thumbnail Image URL:</span>
+                <span className="label-text dark:text-black">
+                  Upload Thumbnail Image:
+                </span>
               </label>
               <label className="input-group">
                 <input
-                  type="text"
+                  type="file"
                   name="photo"
-                  placeholder="Image URL"
-                  className="input input-bordered w-full dark:text-gray-400"
+                  className="input input-bordered w-full dark:text-gray-400 py-2"
                   required
                 />
               </label>
             </div>
           </div>
 
-       
-          {/* form title name and marks */}
+          {/* form title, name, and marks */}
           <div className="md:flex mb-8">
-            <div className="form-control  md:w-1/2">
+            <div className="form-control md:w-1/2">
               <label className="label">
                 <span className="label-text dark:text-black">Title</span>
               </label>
@@ -111,7 +131,7 @@ const CreateAssignment = () => {
                 />
               </label>
             </div>
-            <div className="form-control  md:w-1/2 ml-4">
+            <div className="form-control md:w-1/2 ml-4">
               <label className="label">
                 <span className="label-text dark:text-black">Marks: </span>
               </label>
@@ -145,17 +165,20 @@ const CreateAssignment = () => {
               <label className="label">
                 <span className="label-text dark:text-black">Difficulty Level</span>
               </label>
-              <select name="level" className="select text-gray-800 dark:text-gray-400">
+              <select
+                name="level"
+                className="select text-gray-800 dark:text-gray-400"
+              >
                 <option disabled selected>
                   Select One
                 </option>
-
-                <option value='easy'>Easy</option>
-                <option value ='medium'>Medium</option>
-                <option value='hard'>Hard</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
               </select>
             </div>
           </div>
+
           {/* description */}
           <div>
             <h3>Description:</h3>
@@ -168,8 +191,9 @@ const CreateAssignment = () => {
 
           <input
             type="submit"
-            value="Create Assignment"
-            className="btn btn-block bg-emerald-600 text-white"
+            value={uploading ? "Creating..." : "Create Assignment"}
+            className="btn btn-block bg-emerald-600 text-white hover:bg-emerald-800"
+            disabled={uploading}
           />
         </form>
       </div>

@@ -6,11 +6,13 @@ import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
-import img from "../../assets/login.avif"
+import img from "../../assets/login.avif";
 import Social from "../social/Social";
+
 const Register = () => {
   const { createUser, user, setUser } = useAuth();
   const [show, setShow] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
@@ -22,35 +24,64 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    const { email, password, fullName, photoURL } = data;
+    const { email, password, fullName, photoFile } = data;
 
-    createUser(email, password)
-      .then((result) => {
-        // console.log(result);
-        toast.success("Registration successful");
+    // Handle image upload to imgbb
+    const image = photoFile[0];
+    const formData = new FormData();
+    formData.append("image", image);
 
-        const profileUpdates = {
-          displayName: fullName,
-          photoURL: photoURL,
-        };
+    const imgbbApiKey = import.meta.env.VITE_imgbbApiKey;
 
-        updateProfile(result.user, profileUpdates)
-          .then(() => {
-            setUser({
-              ...user,
-              displayName: fullName,
-              photoURL: photoURL,
+    setUploading(true);
+
+    // Upload image to imgbb
+    fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgData) => {
+        if (imgData.success) {
+          const photoURL = imgData.data.display_url; // Get the uploaded image URL
+
+          //create user in Firebase
+          createUser(email, password)
+            .then((result) => {
+              toast.success("Registration successful");
+
+              const profileUpdates = {
+                displayName: fullName,
+                photoURL: photoURL,
+              };
+
+              updateProfile(result.user, profileUpdates)
+                .then(() => {
+                  setUser({
+                    ...user,
+                    displayName: fullName,
+                    photoURL: photoURL,
+                  });
+                  setUploading(false);
+                })
+                .catch((error) => {
+                  console.error("Error updating profile", error);
+                  setUploading(false);
+                });
+
+              navigate(from);
+            })
+            .catch((error) => {
+              console.error(error);
+              toast.error("Registration failed. Please try again.");
+              setUploading(false);
             });
-          })
-          .catch((error) => {
-            console.error("Error updating profile", error);
-          });
-
-        navigate(from);
+        }
       })
       .catch((error) => {
-        console.error(error);
-        toast.error("Registration failed. Please try again.");
+        console.error("Image upload failed", error);
+        toast.error("Image upload failed. Please try again.");
+        setUploading(false);
       });
   };
 
@@ -74,10 +105,15 @@ const Register = () => {
           {/* Form Section */}
           <div className="w-full md:w-1/2">
             <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold text-emerald-600">Register Now!</h1>
+              <h1 className="text-3xl lg:text-4xl font-bold text-emerald-600">
+                Register Now!
+              </h1>
             </div>
-            <div className=" max-w-sm  mx-auto border-2 rounded-lg p-4 mt-4">
-              <form onSubmit={handleSubmit(onSubmit)} className="font-medium mb-6">
+            <div className="max-w-sm mx-auto border-2 rounded-lg p-4 mt-4">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="font-medium mb-6"
+              >
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Name</span>
@@ -93,6 +129,7 @@ const Register = () => {
                     <span className="text-red-500">This field is required</span>
                   )}
                 </div>
+
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Email</span>
@@ -108,18 +145,22 @@ const Register = () => {
                     <span className="text-red-500">This field is required</span>
                   )}
                 </div>
+
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">PhotoURL</span>
+                    <span className="label-text">Profile Photo</span>
                   </label>
                   <input
-                    type="text"
-                    name="photoURL"
-                    placeholder="Photo URL"
-                    className="input input-bordered"
-                    {...register("photoURL")}
+                    type="file"
+                    name="photoFile"
+                    className="input input-bordered py-2"
+                    {...register("photoFile", { required: true })}
                   />
+                  {errors.photoFile && (
+                    <span className="text-red-500">This field is required</span>
+                  )}
                 </div>
+
                 <div className="form-control relative">
                   <label className="label">
                     <span className="label-text">Password</span>
@@ -148,14 +189,30 @@ const Register = () => {
                     </span>
                   )}
                 </div>
+
                 <div className="form-control mt-4">
-                  <button type="submit" className="btn bg-emerald-600 hover:bg-emerald-800 text-white">
-                    Register Now
+                  <button
+                    type="submit"
+                    className="btn border-2 bg-emerald-600 hover:bg-emerald-800 text-white"
+                    disabled={uploading}
+                  >
+                    {uploading ? (
+                      <span className="flex items-center justify-center ">
+                        <svg
+                          className="animate-spin h-5 w-5 mr-3 border-4 text-emerald-600 border-t-transparent border-white rounded-full"
+                          viewBox="0 0 24 24"
+                        ></svg>
+                      </span>
+                    ) : (
+                      "Register Now"
+                    )}
                   </button>
                 </div>
               </form>
-             
-              <p className="font-medium"> <span className="divider">OR</span></p>
+
+              <p className="font-medium">
+                <span className="divider">OR</span>
+              </p>
               <Social></Social>
               <p className="text-center p-2 font-medium">
                 Already have an account?{" "}

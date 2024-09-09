@@ -2,13 +2,13 @@ import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
-const Pending = () => {
+const PendingAssignment = () => {
   const loadedAssignment = useLoaderData();
   const [assignments, setAssignments] = useState([]);
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [assignmentsPerPage] = useState(10); 
+  const [assignmentsPerPage] = useState(8); 
 
   useEffect(() => {
     setAssignments(loadedAssignment);
@@ -231,4 +231,4 @@ const Pending = () => {
   );
 };
 
-export default Pending;
+export default PendingAssignment;

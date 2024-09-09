@@ -11,11 +11,11 @@ import Login from "../pages/Login/Login";
 import Details from "../pages/Home/CardSection/Details";
 import Assignments from "../pages/Assignment/Assignments";
 import CreateAssignment from "../pages/Assignment/CreateAssignment";
-import Pending from "../pages/Assignment/Pending";
 import AssignmentDetails from "../pages/Assignment/AssignmentDetails";
-import Take from "../pages/Assignment/Take";
-import My from "../pages/Assignment/My";
-import Update from "../pages/Assignment/Update";
+import TakeAssignment from "../pages/Assignment/TakeAssignment";
+import MySubmitted from "../pages/Assignment/MySubmitted";
+import UpdateAssignment from "../pages/Assignment/UpdateAssignment";
+import PendingAssignment from "../pages/Assignment/PendingAssignment";
 
 
 
@@ -61,25 +61,25 @@ import Update from "../pages/Assignment/Update";
         
       {
         path: '/my',
-        element: <PrivateRoute><My></My></PrivateRoute>,
+        element: <PrivateRoute><MySubmitted></MySubmitted></PrivateRoute>,
         loader: () => fetch("https://group-study-server-eight.vercel.app/submit"),
        
       },
       
       {
         path: '/take/:id',
-        element: <Take></Take>,
+        element: <TakeAssignment></TakeAssignment>,
         loader: () => fetch('https://group-study-server-eight.vercel.app/study'),
       },
       {
         path: '/pending',
-        element: <PrivateRoute><Pending></Pending></PrivateRoute>,
+        element: <PrivateRoute><PendingAssignment></PendingAssignment></PrivateRoute>,
         loader: () => fetch("https://group-study-server-eight.vercel.app/submit"),
 
       },
       {
         path: "/update/:id",
-        element: <Update></Update>,
+        element: <UpdateAssignment></UpdateAssignment>,
         loader: ({ params }) => fetch(`https://group-study-server-eight.vercel.app/study/${params.id}`),
       }
 

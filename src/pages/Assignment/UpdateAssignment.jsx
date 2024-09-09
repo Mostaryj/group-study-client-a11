@@ -5,7 +5,7 @@ import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
-const Update = () => {
+const UpdateAssignment = () => {
     const [dueDate, setDueDate] = useState(new Date());
     const [assignments, setAssignments] = useState([]);
 
@@ -178,4 +178,4 @@ const Update = () => {
     );
 };
 
-export default Update;
+export default UpdateAssignment;

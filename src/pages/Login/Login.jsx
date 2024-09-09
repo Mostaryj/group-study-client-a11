@@ -12,7 +12,7 @@ import img from "../../assets/login.avif";
 const Login = () => {
   const { signInUser } = useAuth();
   const [show, setShow] = useState(false);
-
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,6 +25,7 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    setUploading(true);
     const { email, password } = data;
     signInUser(email, password)
       .then((result) => {
@@ -32,12 +33,15 @@ const Login = () => {
 
         //  const user = {email};
         navigate(from);
+        setUploading(false); 
       })
       .catch((error) => {
         toast.error(
           "Failed to login. Please check your email or password.",
           error
         );
+        setUploading(false);
+
       });
   };
 
@@ -57,54 +61,75 @@ const Login = () => {
             />
           </div>
 
-          <div className="w-full md:w-1/2">            <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold text-emerald-600">Login Now!</h1>
+          <div className="w-full md:w-1/2">
+            {" "}
+            <div className="text-center">
+              <h1 className="text-3xl lg:text-4xl font-bold text-emerald-600">
+                Login Now!
+              </h1>
             </div>
             <div className=" max-w-sm  mx-auto border-2 rounded-lg p-4 mt-4">
-            <form onSubmit={handleSubmit(onSubmit)} className="">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  className="input input-bordered"
-                  {...register("email", { required: true })}
-                />
-                {errors.email && (
-                  <span className="text-red-500">This field is required</span>
-                )}
-              </div>
-              <div className="form-control relative">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  type={show ? "text" : "password"}
-                  name="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                  {...register("password", { required: true })}
-                />
-                <span
-                  onClick={() => setShow(!show)}
-                  className="absolute mt-14 ml-48 sm:ml-56"
-                >
-                  {show ? <FaEye /> : <FaEyeSlash />}
-                </span>
-                {errors.password && (
-                  <span className="text-red-500">This field is required</span>
-                )}
-              </div>
-              <div className="form-control mt-4">
-              <button type="submit" className="btn bg-emerald-600 hover:bg-emerald-800 text-white">
-                  Login
-                </button>
-              </div>
-            </form>
-            <p className="font-medium"> <span className="divider">OR</span></p>
+              <form onSubmit={handleSubmit(onSubmit)} className="">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="email"
+                    className="input input-bordered"
+                    {...register("email", { required: true })}
+                  />
+                  {errors.email && (
+                    <span className="text-red-500">This field is required</span>
+                  )}
+                </div>
+                <div className="form-control relative">
+                  <label className="label">
+                    <span className="label-text">Password</span>
+                  </label>
+                  <input
+                    type={show ? "text" : "password"}
+                    name="password"
+                    placeholder="password"
+                    className="input input-bordered"
+                    {...register("password", { required: true })}
+                  />
+                  <span
+                    onClick={() => setShow(!show)}
+                    className="absolute mt-14 ml-48 sm:ml-56"
+                  >
+                    {show ? <FaEye /> : <FaEyeSlash />}
+                  </span>
+                  {errors.password && (
+                    <span className="text-red-500">This field is required</span>
+                  )}
+                </div>
+                <div className="form-control mt-4">
+                  <button
+                    type="submit"
+                    className="btn border-2 bg-emerald-600 hover:bg-emerald-800 text-white"
+                    disabled={uploading}
+                  >
+                    {uploading ? (
+                      <span className="flex items-center justify-center">
+                        <svg
+                          className="animate-spin h-5 w-5 mr-3 border-4 border-t-transparent border-white text-emerald-600 rounded-full"
+                          viewBox="0 0 24 24"
+                        ></svg>
+                      </span>
+                    ) : (
+                      "Login"
+                    )}
+                
+                  </button>
+                </div>
+              </form>
+              <p className="font-medium">
+                {" "}
+                <span className="divider">OR</span>
+              </p>
               <Social></Social>
               <p className="text-center p-2 font-medium">
                 New here?{" "}
@@ -112,12 +137,11 @@ const Login = () => {
                   <span className="text-blue-600">Create a account</span>
                 </Link>
               </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-
   );
 };
 

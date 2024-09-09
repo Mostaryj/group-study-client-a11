@@ -4,7 +4,7 @@ import useAuth from "../../Hook/useAuth";
 import { useLoaderData, useParams } from "react-router-dom";
 
 
-const Take = () => {
+const TakeAssignment = () => {
   const { user } = useAuth() || {};
   
 
@@ -115,4 +115,4 @@ console.log(card);
   );
 };
 
-export default Take;
+export default TakeAssignment;
