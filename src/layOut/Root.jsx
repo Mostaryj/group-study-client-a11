@@ -20,7 +20,7 @@ const Root = () => {
     <div>
       <div className="mx-auto px-2 sm:px-0">
         <Nav></Nav>
-        <div className="">
+        <div className="mt-[74px]">
           <Outlet></Outlet>
         </div>
       </div>

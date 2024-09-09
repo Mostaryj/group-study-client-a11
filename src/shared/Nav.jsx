@@ -27,20 +27,20 @@ const Nav = () => {
 
   const navLinks = (
     <>
-      <li className="font-semibold md:text-lg">
+      <li className="md:font-semibold lg:text-lg">
         <Link to="/">Home</Link>
       </li>
-      <li className="font-semibold md:text-lg">
-        <Link to="/assignments">Assignments</Link>
+      <li className="md:font-semibold lg:text-lg">
+        <Link to="/assignments">All Assignments</Link>
       </li>
       {user && (
-        <li className="font-semibold md:text-lg">
+        <li className="md:font-semibold lg:text-lg">
           <Link to="/create">Create Assignments</Link>
         </li>
       )}
 
       {user && (
-        <li className="font-semibold md:text-lg">
+        <li className="md:font-semibold lg:text-lg">
           <Link to="/pending">Pending Assignments</Link>
         </li>
       )}
@@ -50,8 +50,8 @@ const Nav = () => {
   );
 
   return (
-    <div className="">
-      <div className="navbar ">
+<div className="">
+<div className="navbar fixed top-0 z-50 w-full bg-base-100 bg-opacity-90">
         <div className="navbar-start ">
           <div className="dropdown">
             <div
@@ -81,15 +81,15 @@ const Nav = () => {
               {navLinks}
             </ul>
           </div>
-          <p className=" font-bold text-xl lg:text-2xl  sm:flex items-center justify-center text-emerald-600 dark:text-green-500 bg-clip-text">
+          <p className=" font-bold text-lg lg:text-2xl  sm:flex items-center justify-center text-emerald-600 dark:text-green-500 bg-clip-text">
             <span>
-              <img src={icon} alt="" className="w-10 h-10 hidden sm:block mr-2" />
+              <img src={icon} alt="" className="w-10 h-10 hidden lg:block mr-2" />
             </span>
             StudyHub
           </p>
         </div>
-        <div className="navbar-center  hidden sm:block md:flex lg:flex">
-          <ul className="menu menu-horizontal   px-1 gap-2">{navLinks}</ul>
+        <div className="navbar-center  hidden sm:block  lg:flex">
+          <ul className="menu menu-horizontal px-1 gap-2 ">{navLinks}</ul>
         </div>
 
         <div className="navbar-end">
@@ -100,7 +100,7 @@ const Nav = () => {
               tabIndex={0}
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-12 rounded-full border-2">
+              <div className="w-10 rounded-full border-2">
                 <img
                   src={
                     user?.photoURL ||
@@ -131,14 +131,14 @@ const Nav = () => {
           ) : (
     
 
-            <div className="flex ">
+            <div className="flex gap-2">
               <Link to="/login">
-                <button className="btn bg-emerald-600 hover:bg-emerald-800  text-white">
+                <button className=" hover:border-b-2  font-medium">
                   Login
                 </button>
               </Link>
               <Link to="/register">
-                <button className="btn bg-emerald-600 hover:bg-emerald-800 text-white">
+                <button className=" hover:border-b-2  font-medium">
                   Register
                 </button>
               </Link>

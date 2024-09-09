@@ -26,7 +26,7 @@ const Details = () => {
         <p><span className="font-semibold">Description:</span> {card.description}</p>
         <div className="card-actions ">
          <Link to='/'>
-         <button className="btn bg-emerald-600 text-white">Go Back</button>
+         <button className="btn bg-emerald-600 text-white hover:bg-emerald-800">Go Back</button>
          </Link>
         </div>
       </div>

@@ -70,12 +70,12 @@ const CreateAssignment = () => {
   };
 
   return (
-    <div>
-      <div className="bg-gray-100 p-4 md:p-24 dark:text-black">
+    <div className="max-w-2xl mx-auto bg-emerald-100">
+      <div className=" p-4  dark:text-black">
         <h2 className="text-3xl  font-pop text-center font-extrabold">
-          Create Assignment
+          Create a new assignment
         </h2>
-        <form onSubmit={handleAssignment}>
+        <form onSubmit={handleAssignment} className="font-medium">
           {/* photo url */}
           <div className="mb-8">
             <div className="form-control w-full">

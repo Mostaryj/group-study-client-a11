@@ -5,6 +5,10 @@ import Swal from "sweetalert2";
 const Pending = () => {
   const loadedAssignment = useLoaderData();
   const [assignments, setAssignments] = useState([]);
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [assignmentsPerPage] = useState(10); 
 
   useEffect(() => {
     setAssignments(loadedAssignment);
@@ -20,6 +24,17 @@ const Pending = () => {
       .catch((error) => console.error("Error fetching assignments:", error));
   }, [loadedAssignment]);
 
+  // Calculate the index of the first and last assignment on the current page
+  const indexOfLastAssignment = currentPage * assignmentsPerPage;
+  const indexOfFirstAssignment = indexOfLastAssignment - assignmentsPerPage;
+  const currentAssignments = assignments.slice(
+    indexOfFirstAssignment,
+    indexOfLastAssignment
+  );
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const handleSubmit = (e, assignmentId) => {
     e.preventDefault();
     const form = e.target;
@@ -31,8 +46,6 @@ const Pending = () => {
       feedBack,
     };
 
-    console.log(submit);
-
     // Update the assignment status to "Completed"
     setAssignments((prevAssignments) =>
       prevAssignments.map((assignment) =>
@@ -42,7 +55,7 @@ const Pending = () => {
       )
     );
 
-    // Make an API call to update the assignment status in the backend
+    // update the assignment status in the backend
     fetch(`https://group-study-server-eight.vercel.app/submit/${assignmentId}`, {
       method: "PUT",
       headers: {
@@ -56,29 +69,27 @@ const Pending = () => {
         }
         return response.json();
       })
-      .then((data) => {
-        console.log("Assignment updated successfully:", data);
+      .then(() => {
         Swal.fire("Success", "Assignment marked as completed", "success");
 
         // Close the modal
         const modal = document.getElementById(`modal_${assignmentId}`);
         modal.close();
       })
-      .catch((error) => {
-        console.error("Error updating assignment:", error);
+      .catch(() => {
         Swal.fire("Error", "Failed to update assignment", "error");
       });
   };
 
   return (
-    <div>
-      <h1 className="text-4xl font-bold text-center mt-6 ">
+    <div className="max-w-6xl mx-auto bg-white dark:bg-white text-black bg:text-black p-4">
+      <h1 className="text-4xl font-bold text-center mt-10 ">
         Pending Assignment
       </h1>
       <div className="overflow-x-auto mt-6">
-        <table className="table ">
+        <table className="table font-medium">
           <thead>
-            <tr className="">
+            <tr className="border border-emerald-600 bg-emerald-600 text-white text-center">
               <th>#</th>
               <th>Title</th>
               <th>Mark</th>
@@ -88,14 +99,14 @@ const Pending = () => {
             </tr>
           </thead>
           <tbody>
-            {assignments.map((assignment, index) => (
-              <tr key={assignment._id}>
-                <td>{index + 1}</td>
-                <td>{assignment.title}</td>
-                <td>{assignment.marks}</td>
-                <td>{assignment.name}</td>
-                <td>{assignment.status}</td>
-                <td>
+            {currentAssignments.map((assignment, index) => (
+              <tr key={assignment._id} className="border border-black text-center">
+                <td className="border border-black">{index + 1}</td>
+                <td className="border border-black">{assignment.title}</td>
+                <td className="border border-black">{assignment.marks}</td>
+                <td className="border border-black">{assignment.name}</td>
+                <td className="border border-black">{assignment.status}</td>
+                <td className="border border-black">
                   <div>
                     <button
                       onClick={() =>
@@ -103,7 +114,7 @@ const Pending = () => {
                           .getElementById(`modal_${assignment._id}`)
                           .showModal()
                       }
-                      className="btn bg-blue-700 text-white"
+                      className="btn rounded-3xl bg-blue-600 hover:bg-blue-800 text-white"
                     >
                       Give Mark
                     </button>
@@ -135,34 +146,35 @@ const Pending = () => {
                           </button>
                         </div>
                         <form onSubmit={(e) => handleSubmit(e, assignment._id)}>
-                          <div className="flex sm:flex-col md:justify-between mb-8">
-                            <div className="form-control gap-2 md:w-1/2">
+                          <div className="flex sm:flex-col md:justify-between mb-8 p-4">
+                            <h1 className="text-2xl text-gray-500">Give mark</h1>
+                            <div className="form-control gap-2">
                               <label className="label">
                                 <span className="label-text">PDF/Doc:</span>
                               </label>
                               <label className="input-group">
                                 <input
                                   type="text"
-                                  name=""
                                   placeholder={assignment.pdf}
-                                  className="input input-bordered w-full"
+                                  className="input input-bordered border-black w-full"
+                                  readOnly
                                 />
                               </label>
                             </div>
-                            <div className="form-control gap-2 md:w-1/2">
+                            <div className="form-control gap-2">
                               <label className="label">
                                 <span className="label-text">Note:</span>
                               </label>
                               <label className="input-group">
                                 <input
                                   type="text"
-                                  name=""
                                   placeholder={assignment.note}
-                                  className="input input-bordered w-full"
+                                  className="input input-bordered border-black w-full"
+                                  readOnly
                                 />
                               </label>
                             </div>
-                            <div className="form-control gap-2 md:w-1/2">
+                            <div className="form-control gap-2">
                               <label className="label">
                                 <span className="label-text">Give Mark:</span>
                               </label>
@@ -170,24 +182,26 @@ const Pending = () => {
                                 <input
                                   type="text"
                                   name="giveMark"
-                                  placeholder="mark"
-                                  className="input input-bordered w-full"
+                                  placeholder="Mark"
+                                  className="input input-bordered border-black w-full"
                                 />
                               </label>
                               <div>
-                                <p>FeedBack:</p>
+                              <label className="label">
+                                <span className="label-text">Feed Back:</span>
+                              </label>
+                              
                                 <textarea
                                   name="feedBack"
-                                  id=""
-                                  placeholder="feedBack"
-                                  className="rounded-lg text-gray-400 p-2 w-full border-2 mt-2 mb-4"
+                                  placeholder="Feedback"
+                                  className="rounded-lg text-gray-400 p-2 w-full border border-black mt-2 mb-4"
                                 ></textarea>
                               </div>
                             </div>
                             <input
                               type="submit"
-                              value="Request"
-                              className="btn btn-block bg-green-300"
+                              value="Submit"
+                              className="btn bg-green-500 hover:bg-green-800 text-white"
                             />
                           </div>
                         </form>
@@ -199,6 +213,19 @@ const Pending = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-6">
+        {Array.from({ length: Math.ceil(assignments.length / assignmentsPerPage) }, (_, i) => (
+          <button
+            key={i + 1}
+            onClick={() => paginate(i + 1)}
+            className={`px-4 py-2 mx-1 ${currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
+          >
+            {i + 1}
+          </button>
+        ))}
       </div>
     </div>
   );

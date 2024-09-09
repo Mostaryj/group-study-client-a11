@@ -74,11 +74,11 @@ console.log(card);
    
   };
   return (
-    <div>
+    <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-center mt-6">Take assignment</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="font-medium">
           <div className=" mb-8">
-          <div className="form-control  md:w-1/2">
+          <div className="form-control ">
             <label className="label">
               <span className="label-text"> PDF/DOC:</span>
             </label>
@@ -87,7 +87,7 @@ console.log(card);
                 type="text"
                 name="pdf"
                 placeholder="pdf/doc"
-                className="input input-bordered w-full"
+                className="input input-bordered border-black w-full"
                 required
               
               />
@@ -96,9 +96,9 @@ console.log(card);
          
           </div>
           <div>
-            <h3>Quick Notes:</h3>
+            <h3 className="mt-4">Quick Notes:</h3>
             <textarea
-              className="textarea textarea-bordered h-[150px] w-full"
+              className="textarea textarea-bordered border-black h-[150px] w-full"
               placeholder="Note"
               name="note"
             ></textarea>
@@ -108,7 +108,7 @@ console.log(card);
         <input
           type="submit"
           value="Submit Assignment"
-          className="btn btn-block bg-emerald-600 text-white"
+          className="btn btn-block bg-emerald-600 text-white hover:bg-emerald-800"
         />
       </form>
     </div>
